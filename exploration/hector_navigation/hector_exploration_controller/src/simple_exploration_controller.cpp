@@ -33,6 +33,8 @@
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 
+#include "beginner_tutorials/Loc.h"
+
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient; 
 
 class SimpleExplorationController
@@ -40,7 +42,7 @@ class SimpleExplorationController
 public:
   SimpleExplorationController()
   {
-    ros::NodeHandle nh;
+    //ros::NodeHandle nh;
 
     exploration_plan_service_client_ = nh.serviceClient<hector_nav_msgs::GetRobotTrajectory>("get_exploration_path");
 
@@ -56,6 +58,7 @@ public:
     while(!mb_ac->waitForServer(ros::Duration(5.0))) { 
 	ROS_INFO("Waiting for the move_base action server to come up"); 
     }
+
 
   }
 
@@ -91,6 +94,8 @@ public:
     //vel_pub_.publish(twist);
   }
 
+  ros::NodeHandle nh; 
+
   ros::ServiceClient exploration_plan_service_client_;
   ros::Publisher vel_pub_;
 
@@ -102,34 +107,92 @@ public:
   ros::Timer cmd_vel_generator_timer_;
 
   MoveBaseClient *mb_ac; 
+
 };
+
+//beginner_tutorials::Loc *global_msg; 
+beginner_tutorials::Loc global_msg; 
+
+bool saw_a_face; 
+
+void faceCallback(const beginner_tutorials::Loc::ConstPtr& msg) { 
+	if(msg->labels.size() > 0) { 
+		ROS_INFO("I heard %f %f %f", msg->x[0], msg->y[0], msg->z[0]);
+
+		//global_msg = new beginner_tutorials::Loc; 
+
+		global_msg.x.push_back(msg->x[0]);
+		global_msg.y.push_back(msg->y[0]); 
+		global_msg.z.push_back(msg->z[0]);  	
+
+		saw_a_face = true; 
+	} else { 
+		ROS_INFO("I heard nothing"); 
+
+		saw_a_face = false; 
+	}
+
+}
+
+
 
 int main(int argc, char **argv) {
   ros::init(argc, argv, ROS_PACKAGE_NAME);
 
+  //global_msg = NULL; 
+
+  saw_a_face = false; 
+
   SimpleExplorationController ec;
+
+  ros::Subscriber sub = ec.nh.subscribe("location", 1, faceCallback); 
 
   ros::Duration(5.0).sleep(); 
 
+  ros::Rate r(0.1); 
+
   while(ros::ok()) { 
-    hector_nav_msgs::GetRobotTrajectory srv_exploration_plan;
+    ros::spinOnce(); 
 
-    if (ec.exploration_plan_service_client_.call(srv_exploration_plan)){
-      ROS_INFO("Generated exploration path with %u poses", (unsigned int)srv_exploration_plan.response.trajectory.poses.size());
-      ec.path_follower_.setPlan(srv_exploration_plan.response.trajectory.poses);
-    }else{
-      ROS_WARN("Service call for exploration service failed");
+    if(saw_a_face) { 
+	//go to face
+	ROS_INFO("go to face"); 
+    
+	//global_msg = NULL; 
+    } else { 
+	ROS_INFO("go to explore waypoint"); 
+
+	
+        hector_nav_msgs::GetRobotTrajectory srv_exploration_plan;
+    
+        if (ec.exploration_plan_service_client_.call(srv_exploration_plan)){
+          ROS_INFO("Generated exploration path with %u poses", (unsigned int)srv_exploration_plan.response.trajectory.poses.size());
+          ec.path_follower_.setPlan(srv_exploration_plan.response.trajectory.poses);
+        }else{
+          ROS_WARN("Service call for exploration service failed");
+        }
+    
+        move_base_msgs::MoveBaseGoal goal; 
+        goal.target_pose.header.frame_id = "/map"; 
+        goal.target_pose.header.stamp = ros::Time::now(); 
+        goal.target_pose.pose = srv_exploration_plan.response.trajectory.poses[srv_exploration_plan.response.trajectory.poses.size()-1].pose; 
+
+        ROS_INFO("sending goal"); 
+        ec.mb_ac->sendGoal(goal); 
+
+        ec.mb_ac->waitForResult(ros::Duration(5.0)); //ros::Duration(10.0)); 
+
+	ec.mb_ac->cancelGoal(); 
+
+	
     }
+    
+    //ROS_INFO("sending goal"); 
+    //ec.mb_ac->sendGoal(goal); 
 
-    move_base_msgs::MoveBaseGoal goal; 
-    goal.target_pose.header.frame_id = "/map"; 
-    goal.target_pose.header.stamp = ros::Time::now(); 
-    goal.target_pose.pose = srv_exploration_plan.response.trajectory.poses[srv_exploration_plan.response.trajectory.poses.size()-1].pose; 
+    //ec.mb_ac->waitForResult(); //ros::Duration(10.0)); 
 
-    ROS_INFO("sending goal"); 
-    ec.mb_ac->sendGoal(goal); 
-
-    ec.mb_ac->waitForResult(); //ros::Duration(10.0)); 
+    r.sleep(); 
   }
 
 
