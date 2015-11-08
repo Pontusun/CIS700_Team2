@@ -1,0 +1,17 @@
+
+<launch>
+
+
+  <!--- Run gmapping -->
+  <include file="./gmapping.launch.xml"/>
+
+  <!--- Run Move Base -->
+  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+
+  <!-- Run Frontier Exploration -->
+  <include file="exploration.launch"/>
+
+
+
+
+</launch>

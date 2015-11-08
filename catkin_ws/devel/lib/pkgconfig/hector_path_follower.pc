@@ -1,0 +1,8 @@
+prefix=/home/andy/Projects/CIS700_Team2/catkin_ws/devel
+
+Name: hector_path_follower
+Description: Description of hector_path_follower
+Version: 0.0.0
+Cflags: -I/home/andy/Projects/CIS700_Team2/catkin_ws/src/hector_navigation/hector_path_follower/include
+Libs: -L/home/andy/Projects/CIS700_Team2/catkin_ws/devel/lib -lhector_path_follower
+Requires: nav_msgs roscpp tf

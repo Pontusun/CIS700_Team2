@@ -19,6 +19,8 @@ private:
     double x;
     double y;
     double yaw;
+    ros::NodeHandle n; 
+    ros::Subscriber visionSub; // subscribe to vision
 
     //void goalDoneCallback(const actionlib::SimpleClientGoalState &state, const move_base_msgs::MoveBaseResultConstPtr &result);
     //void goalActiveCallback();
@@ -39,6 +41,11 @@ ExploreGoal::ExploreGoal() : ac("move_base", true) {
 	    ROS_FATAL("Did you forget to launch the ROS navigation?");
 	    ROS_BREAK();
 	}
+
+  // subscriptions
+  this->visionSub = this->n.subscribe("location", 1000, chatterCallback);
+
+
 }
 
 
@@ -68,6 +75,8 @@ void ExploreGoal::getNewGoal(){
   std::cin >> this->yaw;
 }
 
+
+
 // callbacks
 
 /*
@@ -81,6 +90,11 @@ void ExploreGoal::goalDoneCallback(const actionlib::SimpleClientGoalState &state
 }
 */
 
+void ExploreGoal::visionCallback(const std_msgs::String::ConstPtr& msg)
+{
+  ROS_INFO("I heard: [%s]", msg->data.c_str());
+}
+
 
 int main(int argc, char** argv){
   	
@@ -88,11 +102,18 @@ int main(int argc, char** argv){
   if (ros::ok()){std::cout<<"ROS is okay!";}
   ExploreGoal node;
   
+  // set up subscriptions
+  ros::Publisher chatter_pub3 = n3.advertise<beginner_tutorials::Loc>("location", 1000);
+  
   while(ros::ok()){
+  	
+  	// demo
+  	/*
     node.getNewGoal();
     node.sendNewGoal();
 
     // wait for action to return
+    /*
     bool finished_before_timeout = node.ac.waitForResult(ros::Duration(60.0));
 
     if (finished_before_timeout)
@@ -104,6 +125,7 @@ int main(int argc, char** argv){
     else{
       ROS_INFO("Action did not finish before the time out.");
     }
+    */
   	
   	ros::spinOnce();
   }

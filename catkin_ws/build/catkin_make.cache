@@ -1,2 +1,2 @@
-beginner_tutorials
--DCATKIN_DEVEL_PREFIX=/home/parallels/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/parallels/catkin_ws/install -G Unix Makefiles
+beginner_tutorials:hector_navigation/hector_exploration_controller:hector_navigation/hector_exploration_node:hector_navigation/hector_exploration_planner:hector_navigation/hector_path_follower
+-DCATKIN_DEVEL_PREFIX=/home/andy/Projects/CIS700_Team2/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/andy/Projects/CIS700_Team2/catkin_ws/install -G Unix Makefiles
