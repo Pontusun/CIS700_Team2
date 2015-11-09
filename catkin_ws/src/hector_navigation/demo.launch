@@ -1,0 +1,13 @@
+
+<launch>
+  <!-- Start turtlebot -->
+  <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
+
+  <!--- Run gmapping -->
+  <include file="$(find hector_navigation)/hector_navigation_controller/launch/gmapping_demo.launch"/>
+
+  <!-- Run planner -->
+  <include file="$(find hector_navigation)/hector_navigation_node/launch exploration_planner.launch"/>
+  
+</launch>
