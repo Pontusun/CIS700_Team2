@@ -1,8 +1,0 @@
-prefix=/home/genesis/code/ROS/catkin_ws/install
-
-Name: hector_exploration_node
-Description: Description of hector_exploration_node
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/genesis/code/ROS/catkin_ws/install/lib 
-Requires: 

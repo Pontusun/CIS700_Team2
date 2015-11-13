@@ -1,8 +1,0 @@
-prefix=/home/genesis/code/ROS/catkin_ws/devel
-
-Name: hector_path_follower
-Description: Description of hector_path_follower
-Version: 0.0.0
-Cflags: -I/home/genesis/code/ROS/catkin_ws/src/hector_navigation/hector_path_follower/include
-Libs: -L/home/genesis/code/ROS/catkin_ws/devel/lib -lhector_path_follower
-Requires: nav_msgs roscpp tf

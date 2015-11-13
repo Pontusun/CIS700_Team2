@@ -1,8 +1,0 @@
-prefix=/home/genesis/code/ROS/catkin_ws/install
-
-Name: ros_cv
-Description: Description of ros_cv
-Version: 0.0.0
-Cflags: 
-Libs: -L/home/genesis/code/ROS/catkin_ws/install/lib 
-Requires: 

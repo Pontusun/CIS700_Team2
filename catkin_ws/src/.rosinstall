@@ -1,6 +1,0 @@
-- svn:
-    local-name: snap_low_level_detectors
-    uri: https://subversion.assembla.com/svn/cis700-snap/trunk/catkin_ws/src/snap_low_level_detectors
-- svn:
-    local-name: snap_vision_msgs
-    uri: https://subversion.assembla.com/svn/cis700-snap/trunk/catkin_ws/src/snap_vision_msgs

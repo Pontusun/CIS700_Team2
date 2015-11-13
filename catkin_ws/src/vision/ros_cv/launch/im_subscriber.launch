@@ -1,5 +1,0 @@
-<launch>
-  <node name = "im_subscriber" pkg = "ros_cv" type="im_subscriber">
-    <remap from = "camera/image" to="Lifecam/image_raw"  />
-  </node>
-</launch>

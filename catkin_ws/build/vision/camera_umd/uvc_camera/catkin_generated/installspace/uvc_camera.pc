@@ -1,8 +1,0 @@
-prefix=/home/genesis/code/ROS/catkin_ws/install
-
-Name: uvc_camera
-Description: Description of uvc_camera
-Version: 0.2.4
-Cflags: 
-Libs: -L/home/genesis/code/ROS/catkin_ws/install/lib -lnodelet_uvc_camera
-Requires: roscpp nodelet sensor_msgs

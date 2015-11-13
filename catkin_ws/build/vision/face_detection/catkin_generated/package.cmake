@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "face_detection")
-set(face_detection_MAINTAINER "genesis <genesis@todo.todo>")
-set(face_detection_DEPRECATED "")
-set(face_detection_VERSION "0.0.0")
-set(face_detection_BUILD_DEPENDS "cv_bridge" "image_transport" "roscpp" "sensor_msgs" "std_msgs")
-set(face_detection_RUN_DEPENDS "cv_bridge" "image_transport" "roscpp" "sensor_msgs" "std_msgs")
-set(face_detection_BUILDTOOL_DEPENDS "catkin")

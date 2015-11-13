@@ -1,8 +1,0 @@
-prefix=/home/genesis/code/ROS/catkin_ws/devel
-
-Name: opencv_tests
-Description: Description of opencv_tests
-Version: 1.11.8
-Cflags: 
-Libs: -L/home/genesis/code/ROS/catkin_ws/devel/lib 
-Requires: 
