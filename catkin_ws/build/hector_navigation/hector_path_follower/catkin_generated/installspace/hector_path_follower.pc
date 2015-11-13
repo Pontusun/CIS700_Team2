@@ -1,8 +1,8 @@
-prefix=/home/andy/Projects/CIS700_Team2/catkin_ws/install
+prefix=/home/genesis/code/ROS/catkin_ws/install
 
 Name: hector_path_follower
 Description: Description of hector_path_follower
 Version: 0.0.0
-Cflags: -I/home/andy/Projects/CIS700_Team2/catkin_ws/install/include
-Libs: -L/home/andy/Projects/CIS700_Team2/catkin_ws/install/lib -lhector_path_follower
+Cflags: -I/home/genesis/code/ROS/catkin_ws/install/include
+Libs: -L/home/genesis/code/ROS/catkin_ws/install/lib -lhector_path_follower
 Requires: nav_msgs roscpp tf

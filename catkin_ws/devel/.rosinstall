@@ -1,2 +1,2 @@
 - setup-file:
-    local-name: /home/andy/Projects/CIS700_Team2/catkin_ws/devel/setup.sh
+    local-name: /home/genesis/code/ROS/catkin_ws/devel/setup.sh

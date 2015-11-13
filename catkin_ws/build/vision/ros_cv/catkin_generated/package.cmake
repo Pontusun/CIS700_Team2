@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "ros_cv")
+set(ros_cv_MAINTAINER "genesis <genesis@todo.todo>")
+set(ros_cv_DEPRECATED "")
+set(ros_cv_VERSION "0.0.0")
+set(ros_cv_BUILD_DEPENDS "cv_bridge" "image_transport" "roscpp" "sensor_msgs" "std_msgs")
+set(ros_cv_RUN_DEPENDS "cv_bridge" "image_transport" "roscpp" "sensor_msgs" "std_msgs")
+set(ros_cv_BUILDTOOL_DEPENDS "catkin")

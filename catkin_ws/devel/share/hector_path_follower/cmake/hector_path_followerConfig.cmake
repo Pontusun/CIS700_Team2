@@ -67,14 +67,14 @@ set(hector_path_follower_CONFIG_INCLUDED TRUE)
 
 # set variables for source/devel/install prefixes
 if("TRUE" STREQUAL "TRUE")
-  set(hector_path_follower_SOURCE_PREFIX /home/andy/Projects/CIS700_Team2/catkin_ws/src/hector_navigation/hector_path_follower)
-  set(hector_path_follower_DEVEL_PREFIX /home/andy/Projects/CIS700_Team2/catkin_ws/devel)
+  set(hector_path_follower_SOURCE_PREFIX /home/genesis/code/ROS/catkin_ws/src/hector_navigation/hector_path_follower)
+  set(hector_path_follower_DEVEL_PREFIX /home/genesis/code/ROS/catkin_ws/devel)
   set(hector_path_follower_INSTALL_PREFIX "")
   set(hector_path_follower_PREFIX ${hector_path_follower_DEVEL_PREFIX})
 else()
   set(hector_path_follower_SOURCE_PREFIX "")
   set(hector_path_follower_DEVEL_PREFIX "")
-  set(hector_path_follower_INSTALL_PREFIX /home/andy/Projects/CIS700_Team2/catkin_ws/install)
+  set(hector_path_follower_INSTALL_PREFIX /home/genesis/code/ROS/catkin_ws/install)
   set(hector_path_follower_PREFIX ${hector_path_follower_INSTALL_PREFIX})
 endif()
 
@@ -91,9 +91,9 @@ endif()
 # flag project as catkin-based to distinguish if a find_package()-ed project is a catkin project
 set(hector_path_follower_FOUND_CATKIN_PROJECT TRUE)
 
-if(NOT "/home/andy/Projects/CIS700_Team2/catkin_ws/src/hector_navigation/hector_path_follower/include " STREQUAL " ")
+if(NOT "/home/genesis/code/ROS/catkin_ws/src/hector_navigation/hector_path_follower/include " STREQUAL " ")
   set(hector_path_follower_INCLUDE_DIRS "")
-  set(_include_dirs "/home/andy/Projects/CIS700_Team2/catkin_ws/src/hector_navigation/hector_path_follower/include")
+  set(_include_dirs "/home/genesis/code/ROS/catkin_ws/src/hector_navigation/hector_path_follower/include")
   foreach(idir ${_include_dirs})
     if(IS_ABSOLUTE ${idir} AND IS_DIRECTORY ${idir})
       set(include ${idir})
@@ -103,7 +103,7 @@ if(NOT "/home/andy/Projects/CIS700_Team2/catkin_ws/src/hector_navigation/hector_
         message(FATAL_ERROR "Project 'hector_path_follower' specifies '${idir}' as an include dir, which is not found.  It does not exist in '${include}'.  Ask the maintainer 'Stefan Kohlbrecher <kohlbrecher@sim.tu-darmstadt.de>' to fix it.")
       endif()
     else()
-      message(FATAL_ERROR "Project 'hector_path_follower' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/andy/Projects/CIS700_Team2/catkin_ws/src/hector_navigation/hector_path_follower/${idir}'.  Ask the maintainer 'Stefan Kohlbrecher <kohlbrecher@sim.tu-darmstadt.de>' to fix it.")
+      message(FATAL_ERROR "Project 'hector_path_follower' specifies '${idir}' as an include dir, which is not found.  It does neither exist as an absolute directory nor in '/home/genesis/code/ROS/catkin_ws/src/hector_navigation/hector_path_follower/${idir}'.  Ask the maintainer 'Stefan Kohlbrecher <kohlbrecher@sim.tu-darmstadt.de>' to fix it.")
     endif()
     _list_append_unique(hector_path_follower_INCLUDE_DIRS ${include})
   endforeach()
@@ -122,7 +122,7 @@ foreach(library ${libraries})
     set(lib_path "")
     set(lib "${library}-NOTFOUND")
     # since the path where the library is found is returned we have to iterate over the paths manually
-    foreach(path /home/andy/Projects/CIS700_Team2/catkin_ws/devel/lib;/opt/ros/indigo/lib)
+    foreach(path /home/genesis/code/ROS/catkin_ws/devel/lib;/home/genesis/code/ROS/catkin_ws/devel/lib;/opt/ros/indigo/lib)
       find_library(lib ${library}
         PATHS ${path}
         NO_DEFAULT_PATH NO_CMAKE_FIND_ROOT_PATH)
