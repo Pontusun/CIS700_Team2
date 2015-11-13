@@ -320,7 +320,7 @@ _CATKIN_GTEST_INCLUDE:FILEPATH=/usr/include/gtest/gtest.h
 _CATKIN_GTEST_SRC:FILEPATH=/usr/src/gtest/src/gtest.cc
 
 //Path to a file.
-_path_name:FILEPATH=/home/genesis/code/ROS/catkin_ws/src/vision/vision_opencv/cv_bridge/test/enumerants.py
+_path_name:FILEPATH=/home/genesis/code/ROS/catkin_ws/src/vision/cv_bridge/test/enumerants.py
 
 //The directory containing a CMake configuration file for actionlib.
 actionlib_DIR:PATH=/opt/ros/indigo/share/actionlib/cmake
@@ -365,7 +365,7 @@ costmap_2d_DIR:PATH=/opt/ros/indigo/share/costmap_2d/cmake
 cpp_common_DIR:PATH=/opt/ros/indigo/share/cpp_common/cmake
 
 //Value Computed by CMake
-cv_bridge_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/vision_opencv/cv_bridge
+cv_bridge_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/cv_bridge
 
 //The directory containing a CMake configuration file for cv_bridge.
 cv_bridge_DIR:PATH=/home/genesis/code/ROS/catkin_ws/devel/share/cv_bridge/cmake
@@ -374,7 +374,7 @@ cv_bridge_DIR:PATH=/home/genesis/code/ROS/catkin_ws/devel/share/cv_bridge/cmake
 cv_bridge_LIB_DEPENDS:STATIC=general;opencv_videostab;general;opencv_video;general;opencv_superres;general;opencv_stitching;general;opencv_photo;general;opencv_ocl;general;opencv_objdetect;general;opencv_ml;general;opencv_legacy;general;opencv_imgproc;general;opencv_highgui;general;opencv_gpu;general;opencv_flann;general;opencv_features2d;general;opencv_core;general;opencv_contrib;general;opencv_calib3d;general;/opt/ros/indigo/lib/librosconsole.so;general;/opt/ros/indigo/lib/librosconsole_log4cxx.so;general;/opt/ros/indigo/lib/librosconsole_backend_interface.so;general;/usr/lib/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so;general;/opt/ros/indigo/lib/libroscpp_serialization.so;general;/opt/ros/indigo/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so;general;/opt/ros/indigo/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so;
 
 //Value Computed by CMake
-cv_bridge_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/vision_opencv/cv_bridge
+cv_bridge_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/cv_bridge
 
 //Dependencies for the target
 cv_bridge_boost_LIB_DEPENDS:STATIC=general;/usr/lib/x86_64-linux-gnu/libboost_python.so;general;/opt/ros/indigo/lib/librosconsole.so;general;/opt/ros/indigo/lib/librosconsole_log4cxx.so;general;/opt/ros/indigo/lib/librosconsole_backend_interface.so;general;/usr/lib/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so;general;/opt/ros/indigo/lib/libroscpp_serialization.so;general;/opt/ros/indigo/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so;general;/opt/ros/indigo/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so;general;/usr/lib/x86_64-linux-gnu/libpython2.7.so;general;cv_bridge;
@@ -653,10 +653,10 @@ tf_DIR:PATH=/opt/ros/indigo/share/tf/cmake
 topic_tools_DIR:PATH=/opt/ros/indigo/share/topic_tools/cmake
 
 //Value Computed by CMake
-uvc_camera_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/camera_umd/uvc_camera
+uvc_camera_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/uvc_camera
 
 //Value Computed by CMake
-uvc_camera_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/camera_umd/uvc_camera
+uvc_camera_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/uvc_camera
 
 //Value Computed by CMake
 vision_opencv_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/vision_opencv/vision_opencv
@@ -794,7 +794,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=21
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=14
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

@@ -6,6 +6,18 @@
 
 #IncludeRegexTransform: 
 
+/home/genesis/code/ROS/catkin_ws/src/vision/cv_bridge/include/cv_bridge/cv_bridge.h
+sensor_msgs/Image.h
+-
+sensor_msgs/CompressedImage.h
+-
+ros/static_assert.h
+-
+opencv2/core/core.hpp
+-
+stdexcept
+-
+
 /home/genesis/code/ROS/catkin_ws/src/vision/ros_cv/src/image_converter.cpp
 ros/ros.h
 -
@@ -18,18 +30,6 @@ sensor_msgs/image_encodings.h
 opencv2/imgproc/imgproc.hpp
 -
 opencv2/highgui/highgui.hpp
--
-
-/home/genesis/code/ROS/catkin_ws/src/vision/vision_opencv/cv_bridge/include/cv_bridge/cv_bridge.h
-sensor_msgs/Image.h
--
-sensor_msgs/CompressedImage.h
--
-ros/static_assert.h
--
-opencv2/core/core.hpp
--
-stdexcept
 -
 
 /opt/ros/indigo/include/XmlRpcDecl.h

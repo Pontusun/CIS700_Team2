@@ -362,6 +362,48 @@ rosgraph_msgs_generate_messages_py/fast:
 	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build.make vision/face_recognition/CMakeFiles/rosgraph_msgs_generate_messages_py.dir/build
 .PHONY : rosgraph_msgs_generate_messages_py/fast
 
+# Convenience name for target.
+vision/face_recognition/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision/face_recognition/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+.PHONY : vision/face_recognition/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_cpp: vision/face_recognition/CMakeFiles/std_msgs_generate_messages_cpp.dir/rule
+.PHONY : std_msgs_generate_messages_cpp
+
+# fast build rule for target.
+std_msgs_generate_messages_cpp/fast:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/std_msgs_generate_messages_cpp.dir/build.make vision/face_recognition/CMakeFiles/std_msgs_generate_messages_cpp.dir/build
+.PHONY : std_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+vision/face_recognition/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision/face_recognition/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+.PHONY : vision/face_recognition/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_lisp: vision/face_recognition/CMakeFiles/std_msgs_generate_messages_lisp.dir/rule
+.PHONY : std_msgs_generate_messages_lisp
+
+# fast build rule for target.
+std_msgs_generate_messages_lisp/fast:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/std_msgs_generate_messages_lisp.dir/build.make vision/face_recognition/CMakeFiles/std_msgs_generate_messages_lisp.dir/build
+.PHONY : std_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
+vision/face_recognition/CMakeFiles/std_msgs_generate_messages_py.dir/rule:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision/face_recognition/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+.PHONY : vision/face_recognition/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+std_msgs_generate_messages_py: vision/face_recognition/CMakeFiles/std_msgs_generate_messages_py.dir/rule
+.PHONY : std_msgs_generate_messages_py
+
+# fast build rule for target.
+std_msgs_generate_messages_py/fast:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/std_msgs_generate_messages_py.dir/build.make vision/face_recognition/CMakeFiles/std_msgs_generate_messages_py.dir/build
+.PHONY : std_msgs_generate_messages_py/fast
+
 src/face/facerec.o: src/face/facerec.cpp.o
 .PHONY : src/face/facerec.o
 
@@ -413,6 +455,9 @@ help:
 	@echo "... rosgraph_msgs_generate_messages_cpp"
 	@echo "... rosgraph_msgs_generate_messages_lisp"
 	@echo "... rosgraph_msgs_generate_messages_py"
+	@echo "... std_msgs_generate_messages_cpp"
+	@echo "... std_msgs_generate_messages_lisp"
+	@echo "... std_msgs_generate_messages_py"
 	@echo "... test"
 	@echo "... src/face/facerec.o"
 	@echo "... src/face/facerec.i"
