@@ -1,1 +1,0 @@
-/Users/Sun/Documents/face/CMakeFiles/facerec.dir
