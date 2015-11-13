@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "libuvc_camera")
+set(libuvc_camera_MAINTAINER "Ken Tossell <ken@tossell.net>")
+set(libuvc_camera_DEPRECATED "")
+set(libuvc_camera_VERSION "0.0.7")
+set(libuvc_camera_BUILD_DEPENDS "roscpp" "camera_info_manager" "dynamic_reconfigure" "image_transport" "libuvc" "nodelet" "sensor_msgs")
+set(libuvc_camera_RUN_DEPENDS "roscpp" "camera_info_manager" "dynamic_reconfigure" "image_transport" "libuvc" "nodelet" "sensor_msgs")
+set(libuvc_camera_BUILDTOOL_DEPENDS "catkin")

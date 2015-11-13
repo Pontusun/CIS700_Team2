@@ -1,0 +1,8 @@
+prefix=/home/genesis/code/ROS/catkin_ws/install
+
+Name: libuvc_camera
+Description: Description of libuvc_camera
+Version: 0.0.7
+Cflags: -I/home/genesis/code/ROS/catkin_ws/install/include
+Libs: -L/home/genesis/code/ROS/catkin_ws/install/lib -llibuvc_camera_nodelet
+Requires: roscpp camera_info_manager dynamic_reconfigure image_transport nodelet sensor_msgs

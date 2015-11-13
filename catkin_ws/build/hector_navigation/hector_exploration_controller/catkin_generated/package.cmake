@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "hector_exploration_controller")
+set(hector_exploration_controller_MAINTAINER "Stefan Kohlbrecher <kohlbrecher@sim.tu-darmstadt.de>")
+set(hector_exploration_controller_DEPRECATED "")
+set(hector_exploration_controller_VERSION "0.0.0")
+set(hector_exploration_controller_BUILD_DEPENDS "roscpp" "rospy" "std_msgs" "hector_path_follower" "hector_nav_msgs")
+set(hector_exploration_controller_RUN_DEPENDS "roscpp" "rospy" "std_msgs" "hector_path_follower" "hector_nav_msgs")
+set(hector_exploration_controller_BUILDTOOL_DEPENDS "catkin")

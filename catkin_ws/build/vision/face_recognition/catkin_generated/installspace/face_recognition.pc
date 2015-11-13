@@ -1,0 +1,8 @@
+prefix=/home/genesis/code/ROS/catkin_ws/install
+
+Name: face_recognition
+Description: Description of face_recognition
+Version: 0.0.0
+Cflags: -I/home/genesis/code/ROS/catkin_ws/install/include
+Libs: -L/home/genesis/code/ROS/catkin_ws/install/lib 
+Requires: 
