@@ -41,7 +41,7 @@ public:
       &ImageConverter::imageCb, this);
     image_pub_ = it_.advertise("/image_converter/output_video", 1);
 
-    cv::namedWindow(OPENCV_WINDOW);
+   // cv::namedWindow(OPENCV_WINDOW);
   }
 
   ~ImageConverter()
@@ -82,7 +82,7 @@ public:
       cv::circle(cv_ptr->image, cv::Point(50, 50), 10, CV_RGB(255,0,0)); */
     
     // Update GUI Window
-    cv::imshow(OPENCV_WINDOW, frame_gray);
+   // cv::imshow(OPENCV_WINDOW, frame_gray);
     cv::waitKey(3);
     
     // Output modified video stream
