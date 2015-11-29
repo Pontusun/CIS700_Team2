@@ -358,6 +358,12 @@ class_loader_DIR:PATH=/opt/ros/indigo/share/class_loader/cmake
 //The directory containing a CMake configuration file for cmake_modules.
 cmake_modules_DIR:PATH=/opt/ros/indigo/share/cmake_modules/cmake
 
+//Value Computed by CMake
+controller_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/controller
+
+//Value Computed by CMake
+controller_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/controller
+
 //The directory containing a CMake configuration file for costmap_2d.
 costmap_2d_DIR:PATH=/opt/ros/indigo/share/costmap_2d/cmake
 
@@ -390,6 +396,8 @@ face_detection_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/fac
 
 //Value Computed by CMake
 face_recognition_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/face_recognition
+
+face_recognition_DIR:PATH=
 
 //Value Computed by CMake
 face_recognition_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/face_recognition
@@ -541,6 +549,12 @@ nodelet_DIR:PATH=/opt/ros/indigo/share/nodelet/cmake
 
 //Dependencies for the target
 nodelet_uvc_camera_LIB_DEPENDS:STATIC=general;/usr/lib/x86_64-linux-gnu/libboost_thread.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;v4l2;general;/opt/ros/indigo/lib/libcamera_info_manager.so;general;/opt/ros/indigo/lib/libimage_transport.so;general;/opt/ros/indigo/lib/libmessage_filters.so;general;/opt/ros/indigo/lib/libnodeletlib.so;general;/opt/ros/indigo/lib/libbondcpp.so;general;/usr/lib/x86_64-linux-gnu/libuuid.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/indigo/lib/libclass_loader.so;general;/usr/lib/libPocoFoundation.so;general;/usr/lib/x86_64-linux-gnu/libdl.so;general;/opt/ros/indigo/lib/libroslib.so;general;/opt/ros/indigo/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libboost_signals.so;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so;general;/opt/ros/indigo/lib/librosconsole.so;general;/opt/ros/indigo/lib/librosconsole_log4cxx.so;general;/opt/ros/indigo/lib/librosconsole_backend_interface.so;general;/usr/lib/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so;general;/opt/ros/indigo/lib/libxmlrpcpp.so;general;/opt/ros/indigo/lib/libroscpp_serialization.so;general;/opt/ros/indigo/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so;general;/opt/ros/indigo/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so;
+
+//Value Computed by CMake
+object_detection_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/object_detection
+
+//Value Computed by CMake
+object_detection_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/object_detection
 
 //Value Computed by CMake
 opencv_apps_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/vision_opencv/opencv_apps
@@ -794,7 +808,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=14
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=16
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

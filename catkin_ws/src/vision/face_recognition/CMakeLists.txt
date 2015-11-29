@@ -5,6 +5,8 @@ project(face_recognition)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  cv_bridge
+  image_transport
   roscpp
   rospy
   std_msgs
@@ -143,6 +145,8 @@ target_link_libraries(facerec
 	${catkin_LIBRARIES} 
 	${OpenCV_LIBS}
 )
+
+
 
 #############
 ## Install ##

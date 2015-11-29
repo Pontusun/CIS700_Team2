@@ -6,7 +6,7 @@ project(controller)
 ## is used, also find other catkin packages
 
 # set path so ROS can find openCV
-SET("OpenCV_DIR" "/home/andy/Development/opencv-2.4.11/build") 
+#SET("OpenCV_DIR" "/home/andy/Development/opencv-2.4.11/build") 
 
 # packages 
 find_package(catkin REQUIRED COMPONENTS
@@ -15,8 +15,8 @@ find_package(catkin REQUIRED COMPONENTS
   std_msgs
   hector_nav_msgs
   hector_path_follower
-  message_generation
-  face_recognition
+  #message_generation
+  #face_recognition
 )
 
 # openCV is not a catkin pacakge so it needs to be found separately

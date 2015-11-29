@@ -1,0 +1,6 @@
+<launch>
+  <node name = "face_recognition" pkg = "face_recognition" type="face_recognition">
+    <remap from = "camera/image_raw" to="Lifecam/image_raw"  />
+  </node>
+</launch>
+

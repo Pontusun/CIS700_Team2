@@ -1,0 +1,8 @@
+prefix=/home/genesis/code/ROS/catkin_ws/install
+
+Name: object_detection
+Description: Description of object_detection
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/genesis/code/ROS/catkin_ws/install/lib 
+Requires: 

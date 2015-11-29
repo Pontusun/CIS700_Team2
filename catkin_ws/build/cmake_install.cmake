@@ -117,9 +117,11 @@ ENDIF(NOT CMAKE_INSTALL_COMPONENT OR "${CMAKE_INSTALL_COMPONENT}" STREQUAL "Unsp
 IF(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   INCLUDE("/home/genesis/code/ROS/catkin_ws/build/gtest/cmake_install.cmake")
+  INCLUDE("/home/genesis/code/ROS/catkin_ws/build/controller/cmake_install.cmake")
   INCLUDE("/home/genesis/code/ROS/catkin_ws/build/vision/face_recognition/cmake_install.cmake")
   INCLUDE("/home/genesis/code/ROS/catkin_ws/build/vision/cv_bridge/cmake_install.cmake")
   INCLUDE("/home/genesis/code/ROS/catkin_ws/build/vision/face_detection/cmake_install.cmake")
+  INCLUDE("/home/genesis/code/ROS/catkin_ws/build/vision/object_detection/cmake_install.cmake")
   INCLUDE("/home/genesis/code/ROS/catkin_ws/build/vision/ros_cv/cmake_install.cmake")
   INCLUDE("/home/genesis/code/ROS/catkin_ws/build/hector_navigation/hector_path_follower/cmake_install.cmake")
   INCLUDE("/home/genesis/code/ROS/catkin_ws/build/hector_navigation/hector_exploration_controller/cmake_install.cmake")

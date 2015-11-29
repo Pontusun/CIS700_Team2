@@ -153,48 +153,6 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_cpp.dir/rule:
-	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_cpp.dir/rule
-.PHONY : hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-hector_nav_msgs_generate_messages_cpp: hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_cpp.dir/rule
-.PHONY : hector_nav_msgs_generate_messages_cpp
-
-# fast build rule for target.
-hector_nav_msgs_generate_messages_cpp/fast:
-	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_cpp.dir/build.make hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_cpp.dir/build
-.PHONY : hector_nav_msgs_generate_messages_cpp/fast
-
-# Convenience name for target.
-hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_lisp.dir/rule:
-	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_lisp.dir/rule
-.PHONY : hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_lisp.dir/rule
-
-# Convenience name for target.
-hector_nav_msgs_generate_messages_lisp: hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_lisp.dir/rule
-.PHONY : hector_nav_msgs_generate_messages_lisp
-
-# fast build rule for target.
-hector_nav_msgs_generate_messages_lisp/fast:
-	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_lisp.dir/build.make hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_lisp.dir/build
-.PHONY : hector_nav_msgs_generate_messages_lisp/fast
-
-# Convenience name for target.
-hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_py.dir/rule:
-	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_py.dir/rule
-.PHONY : hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_py.dir/rule
-
-# Convenience name for target.
-hector_nav_msgs_generate_messages_py: hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_py.dir/rule
-.PHONY : hector_nav_msgs_generate_messages_py
-
-# fast build rule for target.
-hector_nav_msgs_generate_messages_py/fast:
-	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_py.dir/build.make hector_navigation/hector_exploration_controller/CMakeFiles/hector_nav_msgs_generate_messages_py.dir/build
-.PHONY : hector_nav_msgs_generate_messages_py/fast
-
-# Convenience name for target.
 hector_navigation/hector_exploration_controller/CMakeFiles/simple_exploration_controller.dir/rule:
 	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 hector_navigation/hector_exploration_controller/CMakeFiles/simple_exploration_controller.dir/rule
 .PHONY : hector_navigation/hector_exploration_controller/CMakeFiles/simple_exploration_controller.dir/rule
@@ -239,9 +197,6 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... hector_nav_msgs_generate_messages_cpp"
-	@echo "... hector_nav_msgs_generate_messages_lisp"
-	@echo "... hector_nav_msgs_generate_messages_py"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"

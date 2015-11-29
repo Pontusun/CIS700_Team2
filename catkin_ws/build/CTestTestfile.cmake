@@ -5,9 +5,11 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 SUBDIRS(gtest)
+SUBDIRS(controller)
 SUBDIRS(vision/face_recognition)
 SUBDIRS(vision/cv_bridge)
 SUBDIRS(vision/face_detection)
+SUBDIRS(vision/object_detection)
 SUBDIRS(vision/ros_cv)
 SUBDIRS(hector_navigation/hector_path_follower)
 SUBDIRS(hector_navigation/hector_exploration_controller)

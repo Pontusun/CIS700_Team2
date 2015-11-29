@@ -17,7 +17,7 @@ class ImageConverter
   image_transport::Subscriber image_sub_;
   image_transport::Publisher image_pub_;
   // Set cascades
-  String face_cascade_name;
+  string face_cascade_name;
   CascadeClassifier face_cascade;
   //set face vector
   std::vector<Rect> faces;  
@@ -28,7 +28,8 @@ public:
   ImageConverter()
     : it_(nh_)
   {
-    String face_cascade_name = "/home/genesis/code/ROS/catkin_ws/src/vision/face_detection/haarcascade_frontalface_alt2.xml"; //
+    face_cascade_name = "/home/genesis/code/ROS/catkin_ws/src/vision/face_detection/haarcascade_frontalface_alt2.xml";
+    
     // Load the cascades
     if( !face_cascade.load( face_cascade_name ) )
     {
@@ -39,7 +40,7 @@ public:
     // Subscrive to input video feed and publish output video feed
     image_sub_ = it_.subscribe("/camera/image_raw", 1, 
       &ImageConverter::imageCb, this);
-    image_pub_ = it_.advertise("/image_converter/output_video", 1);
+    image_pub_ = it_.advertise("/face_detection/output_video", 1);
 
    // cv::namedWindow(OPENCV_WINDOW);
   }
@@ -74,8 +75,9 @@ public:
       {  
 	 rectangle(cv_ptr -> image, faces[i], CV_RGB(255,255,255),1);
       }
-  
+ 
     // Update GUI Window
+   // cv::imshow(OPENCV_WINDOW, frame_gray);
     cv::waitKey(3);
     
     // Output modified video stream
@@ -85,7 +87,7 @@ public:
 
 int main(int argc, char** argv)
 {
-  ros::init(argc, argv, "image_converter");
+  ros::init(argc, argv, "face_detection");
   ImageConverter ic;
   ros::spin();
   return 0;
