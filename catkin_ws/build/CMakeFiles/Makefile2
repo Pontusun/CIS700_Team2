@@ -387,9 +387,9 @@ clean: vision/face_recognition/CMakeFiles/face_recognition_gencpp.dir/clean
 # Target rules for target vision/face_recognition/CMakeFiles/face_recognition_generate_messages.dir
 
 # All Build rule for target.
+vision/face_recognition/CMakeFiles/face_recognition_generate_messages.dir/all: vision/face_recognition/CMakeFiles/face_recognition_generate_messages_py.dir/all
 vision/face_recognition/CMakeFiles/face_recognition_generate_messages.dir/all: vision/face_recognition/CMakeFiles/face_recognition_generate_messages_lisp.dir/all
 vision/face_recognition/CMakeFiles/face_recognition_generate_messages.dir/all: vision/face_recognition/CMakeFiles/face_recognition_generate_messages_cpp.dir/all
-vision/face_recognition/CMakeFiles/face_recognition_generate_messages.dir/all: vision/face_recognition/CMakeFiles/face_recognition_generate_messages_py.dir/all
 	$(MAKE) -f vision/face_recognition/CMakeFiles/face_recognition_generate_messages.dir/build.make vision/face_recognition/CMakeFiles/face_recognition_generate_messages.dir/depend
 	$(MAKE) -f vision/face_recognition/CMakeFiles/face_recognition_generate_messages.dir/build.make vision/face_recognition/CMakeFiles/face_recognition_generate_messages.dir/build
 	$(CMAKE_COMMAND) -E cmake_progress_report /home/genesis/code/ROS/catkin_ws/build/CMakeFiles 
@@ -1141,14 +1141,14 @@ vision/cv_bridge/src/preinstall:
 # Target rules for target vision/cv_bridge/src/CMakeFiles/cv_bridge.dir
 
 # All Build rule for target.
-vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/all: vision/face_recognition/CMakeFiles/std_msgs_generate_messages_py.dir/all
 vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/all: vision/face_recognition/CMakeFiles/std_msgs_generate_messages_cpp.dir/all
 vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/all: vision/face_recognition/CMakeFiles/std_msgs_generate_messages_lisp.dir/all
-vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/all: vision/cv_bridge/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
+vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/all: vision/face_recognition/CMakeFiles/std_msgs_generate_messages_py.dir/all
 vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/all: vision/cv_bridge/CMakeFiles/sensor_msgs_generate_messages_cpp.dir/all
 vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/all: vision/cv_bridge/CMakeFiles/sensor_msgs_generate_messages_lisp.dir/all
 vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/all: vision/cv_bridge/CMakeFiles/sensor_msgs_generate_messages_py.dir/all
 vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/all: vision/cv_bridge/CMakeFiles/geometry_msgs_generate_messages_py.dir/all
+vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/all: vision/cv_bridge/CMakeFiles/geometry_msgs_generate_messages_cpp.dir/all
 vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/all: vision/cv_bridge/CMakeFiles/geometry_msgs_generate_messages_lisp.dir/all
 	$(MAKE) -f vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/build.make vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/depend
 	$(MAKE) -f vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/build.make vision/cv_bridge/src/CMakeFiles/cv_bridge.dir/build

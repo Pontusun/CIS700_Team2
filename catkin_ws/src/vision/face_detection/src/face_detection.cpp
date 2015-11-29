@@ -67,14 +67,15 @@ public:
     equalizeHist(frame_gray, frame_gray);
     
     //detect face
-    face_cascade.detectMultiScale( frame_gray, faces, 1.1, 2, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
+    face_cascade.detectMultiScale( frame_gray, faces, 1.05, 6, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
     
     //draw eclipse face on original image
       for( size_t i = 0; i < faces.size(); i++ ) 
       { 
-         Point center( faces[i].x + faces[i].width*0.5, faces[i].y + faces[i].height*0.5 ); 
-         ellipse( cv_ptr->image, center, Size( faces[i].width*0.5, faces[i].height*0.5), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 ); 
+         //Point center( faces[i].x + faces[i].width*0.5, faces[i].y + faces[i].height*0.5 ); 
+         //ellipse( cv_ptr->image, center, Size( faces[i].width*0.5, faces[i].height*0.5), 0, 0, 360, Scalar( 255, 0, 255 ), 4, 8, 0 ); 
  
+	 rectangle(cv_ptr -> image, faces[i], CV_RGB(255,255,255),1);
       }
   
     /*// Draw an example circle on the video stream
@@ -86,7 +87,7 @@ public:
     cv::waitKey(3);
     
     // Output modified video stream
-    image_pub_.publish(cv_ptr->toImageMsg());
+    image_pub_.publish(cv_ptr->toImageMsg()); 
   }
 };
 
