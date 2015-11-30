@@ -5,12 +5,12 @@
   <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
 
   <!--- Run gmapping -->
-  <include file="hector_exploration_controller/launch/gmapping.launch.xml"/>
+  <include file="hector_navigation/hector_exploration_controller/launch/gmapping.launch.xml"/>
   
   <!-- Move base -->
   <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
 
   <!-- Run planner -->
-  <include file="hector_exploration_node/launch/exploration_planner.launch"/>
+  <include file="hector_navigation/hector_exploration_node/launch/exploration_planner.launch"/>
   
 </launch>

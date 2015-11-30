@@ -7,7 +7,7 @@
 #include <actionlib/client/simple_action_client.h>
 #include <geometry_msgs/Twist.h>
 #include <nav_msgs/Odometry.h>
-#include <face_recognition/Loc.h>
+// #include "face_recognition/Loc.h"
 
 // Libraries
 #include <vector>
@@ -27,12 +27,14 @@ public:
     Controller(ros::NodeHandle& nh){
         //set up subscribers and publishers here (change callbacks)
         commandPub = nh.advertise < geometry_msgs::Twist > ("cmd_vel", 1);
-        
-        faceSub = nh.subscribe("", 1, &Controller::detectFace, this);
+        //faceSub = nh.subscribe("", 1, &Controller::detectFace, this);
         //laserSub = nh.subscribe("base_scan", 1, &Controller::commandCallback,this);
         //timer = nh.createTimer(ros::Duration(0.1), &Controller::timerCallback,this);
         
+        
         //set up clients
+        exploration_plan_service_client_ = nh.serviceClient<hector_nav_msgs::GetRobotTrajectory>("get_exploration_path");
+    	path_follower_.initialize(&tfl_);
         mb_ac = new MoveBaseClient("move_base", true); 
 		while(!mb_ac->waitForServer(ros::Duration(5.0))) { 
   			ROS_INFO("Waiting for the move_base action server to come up"); 
@@ -56,9 +58,9 @@ public:
 
     	// get exploration plan
         hector_nav_msgs::GetRobotTrajectory srv_exploration_plan;
-        if (ec.exploration_plan_service_client_.call(srv_exploration_plan)){
+        if (this->exploration_plan_service_client_.call(srv_exploration_plan)){
           ROS_INFO("Generated exploration path with %u poses", (unsigned int)srv_exploration_plan.response.trajectory.poses.size());
-          ec.path_follower_.setPlan(srv_exploration_plan.response.trajectory.poses);
+          this->path_follower_.setPlan(srv_exploration_plan.response.trajectory.poses);
         }
         else{
           ROS_WARN("Service call for exploration service failed");
@@ -78,13 +80,13 @@ public:
     // send a velocity command
     void move(double linear, double angular){
         geometry_msgs::Twist msg; // The default constructor will set all commands to 0
-        msg.linear.x = linearVelMPS;
-        msg.angular.z = angularVelRadPS;
+        msg.linear.x = linear;
+        msg.angular.z = angular;
         commandPub.publish(msg);
     }
 
     // goal based navigation
-    void goal(int x, int y, int yaw){
+    void goal(double x, double y, double yaw){
     	move_base_msgs::MoveBaseGoal goal;
     	goal.target_pose.header.frame_id = "base_link";
     	goal.target_pose.header.stamp = ros::Time::now();
@@ -92,13 +94,18 @@ public:
     	goal.target_pose.pose.position.y = y;
     	goal.target_pose.pose.orientation = tf::createQuaternionMsgFromYaw(yaw);
   		ROS_INFO("Sending a new goal to move_base x %lf y %lf yaw %lf", x, y, yaw);
-  		this->mb_ac.sendGoal(goal);
+  		this->mb_ac->sendGoal(goal);
     }
 
+/*
+* Turtlebot Callbacks
+*/
 
 /*
 * Vision Callbacks 
 */
+
+/*
     void detectFace(const face_recognition::Loc::ConstPtr& msg){
     
     	if(msg->labels.size() > 0) { // face detected 
@@ -123,7 +130,7 @@ public:
 		}
 	} 
   
-     
+*/   
   
     // TODO: Additional Vision subscribers  
     /*
@@ -134,13 +141,9 @@ public:
     */
 
 
-
-
-
 /* 
 * Write Helper Functions
 */    
-    
 
 // Finite State Machine Loop
 // spin() should be overloaded for each individual task controller
@@ -148,7 +151,8 @@ public:
     void spin(){
         ros::Rate rate(50);
         while (ros::ok()) {
-        	this->navigationExplore()
+        	//this->navigationExplore();
+		this->goal(1.0,0.0,0.0);
 
             // TODO: Fill in task logic here
                         
@@ -157,22 +161,10 @@ public:
         }
     }
 
-// declare possible states here 
-enum FSM {
-	EXPLORE; // explore environment until we have stimulus 
-	MOVE; // go to goal point
-	FACE_DET; // response to face detection
-	OBJECT_DET; // response to object detection
-	SCENE_RECOGNITION; // response to scene recognition
-	RECOVERY; // recovery behavior 
-}
-
-
-// Declare member fields here
 protected:
-
 	// publishers and subscribers 
 	ros::Publisher commandPub; // Publisher to the simulated robot's velocity command topic
+	ros::Publisher faceSub; // Publisher to face detection
 	ros::Subscriber laserSub; // Subscriber to the simulated robot's laser scan topic
 	ros::Time rotateStartTime; // Start time of the rotation
 	ros::Duration rotateDuration; // Duration of the rotation
@@ -188,7 +180,7 @@ protected:
 	MoveBaseClient *mb_ac; 
 
 	// flags and states	
-	enum FSM state;
+	//enum FSM state;
 	bool detect_face;
 
 };
@@ -202,4 +194,16 @@ int main(int argc, char **argv) {
     controller.spin(); // Execute FSM loop
     return 0;
 }
+
+/*
+	enum FSM {
+	EXPLORE; // explore environment until we have stimulus 
+	MOVE; // go to goal point
+	FACE_DET; // response to face detection
+	OBJECT_DET; // response to object detection
+	SCENE_RECOGNITION; // response to scene recognition
+	RECOVERY; // recovery behavior 
+}
+*/
+
 

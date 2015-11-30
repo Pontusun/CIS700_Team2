@@ -167,6 +167,20 @@ _face_recognition_generate_messages_check_deps_Loc/fast:
 .PHONY : _face_recognition_generate_messages_check_deps_Loc/fast
 
 # Convenience name for target.
+vision/face_recognition/CMakeFiles/face_recognition.dir/rule:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision/face_recognition/CMakeFiles/face_recognition.dir/rule
+.PHONY : vision/face_recognition/CMakeFiles/face_recognition.dir/rule
+
+# Convenience name for target.
+face_recognition: vision/face_recognition/CMakeFiles/face_recognition.dir/rule
+.PHONY : face_recognition
+
+# fast build rule for target.
+face_recognition/fast:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/face_recognition.dir/build.make vision/face_recognition/CMakeFiles/face_recognition.dir/build
+.PHONY : face_recognition/fast
+
+# Convenience name for target.
 vision/face_recognition/CMakeFiles/face_recognition_gencpp.dir/rule:
 	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision/face_recognition/CMakeFiles/face_recognition_gencpp.dir/rule
 .PHONY : vision/face_recognition/CMakeFiles/face_recognition_gencpp.dir/rule
@@ -278,6 +292,30 @@ facerec/fast:
 	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/facerec.dir/build.make vision/face_recognition/CMakeFiles/facerec.dir/build
 .PHONY : facerec/fast
 
+src/face/face_recognition.o: src/face/face_recognition.cpp.o
+.PHONY : src/face/face_recognition.o
+
+# target to build an object file
+src/face/face_recognition.cpp.o:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/face_recognition.dir/build.make vision/face_recognition/CMakeFiles/face_recognition.dir/src/face/face_recognition.cpp.o
+.PHONY : src/face/face_recognition.cpp.o
+
+src/face/face_recognition.i: src/face/face_recognition.cpp.i
+.PHONY : src/face/face_recognition.i
+
+# target to preprocess a source file
+src/face/face_recognition.cpp.i:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/face_recognition.dir/build.make vision/face_recognition/CMakeFiles/face_recognition.dir/src/face/face_recognition.cpp.i
+.PHONY : src/face/face_recognition.cpp.i
+
+src/face/face_recognition.s: src/face/face_recognition.cpp.s
+.PHONY : src/face/face_recognition.s
+
+# target to generate assembly for a file
+src/face/face_recognition.cpp.s:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/face_recognition.dir/build.make vision/face_recognition/CMakeFiles/face_recognition.dir/src/face/face_recognition.cpp.s
+.PHONY : src/face/face_recognition.cpp.s
+
 src/face/facerec.o: src/face/facerec.cpp.o
 .PHONY : src/face/facerec.o
 
@@ -310,6 +348,7 @@ help:
 	@echo "... depend"
 	@echo "... _face_recognition_generate_messages_check_deps_Loc"
 	@echo "... edit_cache"
+	@echo "... face_recognition"
 	@echo "... face_recognition_gencpp"
 	@echo "... face_recognition_generate_messages"
 	@echo "... face_recognition_generate_messages_cpp"
@@ -324,6 +363,9 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... src/face/face_recognition.o"
+	@echo "... src/face/face_recognition.i"
+	@echo "... src/face/face_recognition.s"
 	@echo "... src/face/facerec.o"
 	@echo "... src/face/facerec.i"
 	@echo "... src/face/facerec.s"

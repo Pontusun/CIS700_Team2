@@ -699,6 +699,19 @@ _face_recognition_generate_messages_check_deps_Loc/fast:
 .PHONY : _face_recognition_generate_messages_check_deps_Loc/fast
 
 #=============================================================================
+# Target rules for targets named face_recognition
+
+# Build rule for target.
+face_recognition: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 face_recognition
+.PHONY : face_recognition
+
+# fast build rule for target.
+face_recognition/fast:
+	$(MAKE) -f vision/face_recognition/CMakeFiles/face_recognition.dir/build.make vision/face_recognition/CMakeFiles/face_recognition.dir/build
+.PHONY : face_recognition/fast
+
+#=============================================================================
 # Target rules for targets named face_recognition_gencpp
 
 # Build rule for target.
@@ -1494,6 +1507,7 @@ help:
 	@echo "... tf_generate_messages_lisp"
 	@echo "... tf_generate_messages_py"
 	@echo "... _face_recognition_generate_messages_check_deps_Loc"
+	@echo "... face_recognition"
 	@echo "... face_recognition_gencpp"
 	@echo "... face_recognition_generate_messages"
 	@echo "... face_recognition_generate_messages_cpp"

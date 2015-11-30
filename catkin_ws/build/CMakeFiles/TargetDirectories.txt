@@ -30,6 +30,7 @@
 /home/genesis/code/ROS/catkin_ws/build/hector_navigation/hector_exploration_planner/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir
 /home/genesis/code/ROS/catkin_ws/build/hector_navigation/hector_exploration_node/CMakeFiles/exploration_planner_node.dir
 /home/genesis/code/ROS/catkin_ws/build/vision/face_detection/CMakeFiles/face_detection.dir
+/home/genesis/code/ROS/catkin_ws/build/vision/face_recognition/CMakeFiles/face_recognition.dir
 /home/genesis/code/ROS/catkin_ws/build/vision/face_recognition/CMakeFiles/face_recognition_gencpp.dir
 /home/genesis/code/ROS/catkin_ws/build/vision/face_recognition/CMakeFiles/face_recognition_generate_messages.dir
 /home/genesis/code/ROS/catkin_ws/build/vision/face_recognition/CMakeFiles/face_recognition_generate_messages_cpp.dir

@@ -387,6 +387,7 @@ SET(CMAKE_DEPEND_INFO_FILES
   "controller/CMakeFiles/tf_generate_messages_lisp.dir/DependInfo.cmake"
   "controller/CMakeFiles/tf_generate_messages_py.dir/DependInfo.cmake"
   "vision/face_recognition/CMakeFiles/_face_recognition_generate_messages_check_deps_Loc.dir/DependInfo.cmake"
+  "vision/face_recognition/CMakeFiles/face_recognition.dir/DependInfo.cmake"
   "vision/face_recognition/CMakeFiles/face_recognition_gencpp.dir/DependInfo.cmake"
   "vision/face_recognition/CMakeFiles/face_recognition_generate_messages.dir/DependInfo.cmake"
   "vision/face_recognition/CMakeFiles/face_recognition_generate_messages_cpp.dir/DependInfo.cmake"

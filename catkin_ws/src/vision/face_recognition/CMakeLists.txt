@@ -135,6 +135,8 @@ include_directories(
 ## Declare a C++ executable
 # add_executable(face_recognition_node src/face_recognition_node.cpp)
 add_executable(facerec src/face/facerec.cpp)
+add_executable(face_recognition src/face/face_recognition.cpp)
+
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
@@ -145,7 +147,10 @@ target_link_libraries(facerec
 	${catkin_LIBRARIES} 
 	${OpenCV_LIBS}
 )
-
+target_link_libraries(face_recognition
+	${catkin_LIBRARIES} 
+	${OpenCV_LIBS}
+)
 
 
 #############

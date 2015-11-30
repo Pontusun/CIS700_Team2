@@ -21,8 +21,6 @@ geometry_msgs/Twist.h
 -
 nav_msgs/Odometry.h
 -
-face_recognition/Loc.h
--
 vector
 -
 math.h
