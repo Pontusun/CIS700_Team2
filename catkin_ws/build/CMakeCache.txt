@@ -584,6 +584,12 @@ pcl_ros_DIR:PATH=/opt/ros/indigo/share/pcl_ros/cmake
 pluginlib_DIR:PATH=/opt/ros/indigo/share/pluginlib/cmake
 
 //Value Computed by CMake
+ros_caffe_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/ros_caffe
+
+//Value Computed by CMake
+ros_caffe_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/ros_caffe
+
+//Value Computed by CMake
 ros_cv_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/ros_cv
 
 //Value Computed by CMake
@@ -808,7 +814,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=16
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=17
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

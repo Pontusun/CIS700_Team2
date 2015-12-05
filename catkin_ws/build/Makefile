@@ -998,6 +998,19 @@ face_detection/fast:
 .PHONY : face_detection/fast
 
 #=============================================================================
+# Target rules for targets named ros_caffe_test
+
+# Build rule for target.
+ros_caffe_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ros_caffe_test
+.PHONY : ros_caffe_test
+
+# fast build rule for target.
+ros_caffe_test/fast:
+	$(MAKE) -f ros_caffe/CMakeFiles/ros_caffe_test.dir/build.make ros_caffe/CMakeFiles/ros_caffe_test.dir/build
+.PHONY : ros_caffe_test/fast
+
+#=============================================================================
 # Target rules for targets named image_converter
 
 # Build rule for target.
@@ -1530,6 +1543,7 @@ help:
 	@echo "... run_tests_cv_bridge_nosetests"
 	@echo "... run_tests_cv_bridge_nosetests_enumerants.py"
 	@echo "... face_detection"
+	@echo "... ros_caffe_test"
 	@echo "... image_converter"
 	@echo "... hector_path_follower"
 	@echo "... hector_path_follower_node"

@@ -72,10 +72,10 @@ public:
     
     cerr << "Start traing@!" << sizeof(images) <<endl;
     // Create a FaceRecognizer and train it on the given images:
-    model = createFisherFaceRecognizer();
+     model = createEigenFaceRecognizer();
+    // model = createLBPHFaceRecognizer();
     model->train(images, labels);
-    cerr << "Train Complete" << labels[1] << endl;
-    
+    cerr << "Train Complete" << labels[1] << endl; 
     // Subscrive to input video feed and publish output video feed
     image_sub_ = it_.subscribe("/camera/image_raw", 1, 
       &ImageConverter::imageCb, this);
@@ -139,8 +139,14 @@ public:
       Mat face_resized;
       cv::resize(face, face_resized, Size(im_width, im_height), 1.0, 1.0, INTER_CUBIC);   
 
+      
+      //set the threshold
+      model->set("threshold", 0.0);
       // Now perform the prediction, see how easy that is:
-      int prediction = model->predict(face_resized);
+      int prediction = -1;
+      double confidence = 0.0;
+      model->predict(face_resized, prediction, confidence);
+      // cerr << "Confidence: "<< confidence << endl;
       // Create the text we will annotate the box with:
       string box_text = format("Prediction = %d", prediction);
       
