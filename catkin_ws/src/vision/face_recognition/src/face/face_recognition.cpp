@@ -52,7 +52,7 @@ public:
       printf("--(!)Error loading\n");
     }
     
-    fn_csv = "/home/genesis/code/ROS/catkin_ws/src/vision/face_recognition/src/face/attfaces10.csv";
+    fn_csv = "/home/genesis/code/ROS/catkin_ws/src/vision/face_recognition/src/face/face.csv";
     
     // Read in the data (fails if no valid input filename is given, but you'll get an error message):
     try {
@@ -72,7 +72,7 @@ public:
     
     cerr << "Start traing@!" << sizeof(images) <<endl;
     // Create a FaceRecognizer and train it on the given images:
-     model = createEigenFaceRecognizer();
+    model = createFisherFaceRecognizer();
     // model = createLBPHFaceRecognizer();
     model->train(images, labels);
     cerr << "Train Complete" << labels[1] << endl; 
@@ -141,7 +141,7 @@ public:
 
       
       //set the threshold
-      model->set("threshold", 0.0);
+      //model->set("threshold", 10.0);
       // Now perform the prediction, see how easy that is:
       int prediction = -1;
       double confidence = 0.0;
