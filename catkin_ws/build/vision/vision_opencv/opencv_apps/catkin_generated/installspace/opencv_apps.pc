@@ -1,8 +1,0 @@
-prefix=/home/genesis/code/ROS/catkin_ws/install
-
-Name: opencv_apps
-Description: Description of opencv_apps
-Version: 1.11.8
-Cflags: -I/home/genesis/code/ROS/catkin_ws/install/include
-Libs: -L/home/genesis/code/ROS/catkin_ws/install/lib 
-Requires: 

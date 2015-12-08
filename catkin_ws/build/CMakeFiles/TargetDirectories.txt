@@ -38,7 +38,6 @@
 /home/genesis/code/ROS/catkin_ws/build/vision/face_recognition/CMakeFiles/face_recognition_generate_messages_py.dir
 /home/genesis/code/ROS/catkin_ws/build/vision/face_recognition/CMakeFiles/face_recognition_genlisp.dir
 /home/genesis/code/ROS/catkin_ws/build/vision/face_recognition/CMakeFiles/face_recognition_genpy.dir
-/home/genesis/code/ROS/catkin_ws/build/vision/face_recognition/CMakeFiles/facerec.dir
 /home/genesis/code/ROS/catkin_ws/build/controller/CMakeFiles/geometry_msgs_generate_messages_cpp.dir
 /home/genesis/code/ROS/catkin_ws/build/controller/CMakeFiles/geometry_msgs_generate_messages_lisp.dir
 /home/genesis/code/ROS/catkin_ws/build/controller/CMakeFiles/geometry_msgs_generate_messages_py.dir
@@ -84,6 +83,7 @@
 /home/genesis/code/ROS/catkin_ws/build/controller/CMakeFiles/sensor_msgs_generate_messages_lisp.dir
 /home/genesis/code/ROS/catkin_ws/build/controller/CMakeFiles/sensor_msgs_generate_messages_py.dir
 /home/genesis/code/ROS/catkin_ws/build/hector_navigation/hector_exploration_controller/CMakeFiles/simple_exploration_controller.dir
+/home/genesis/code/ROS/catkin_ws/build/simple_talker/CMakeFiles/simple_talker.dir
 /home/genesis/code/ROS/catkin_ws/build/controller/CMakeFiles/std_msgs_generate_messages_cpp.dir
 /home/genesis/code/ROS/catkin_ws/build/controller/CMakeFiles/std_msgs_generate_messages_lisp.dir
 /home/genesis/code/ROS/catkin_ws/build/controller/CMakeFiles/std_msgs_generate_messages_py.dir
@@ -97,5 +97,6 @@
 /home/genesis/code/ROS/catkin_ws/build/hector_navigation/hector_exploration_planner/CMakeFiles/topic_tools_generate_messages_cpp.dir
 /home/genesis/code/ROS/catkin_ws/build/hector_navigation/hector_exploration_planner/CMakeFiles/topic_tools_generate_messages_lisp.dir
 /home/genesis/code/ROS/catkin_ws/build/hector_navigation/hector_exploration_planner/CMakeFiles/topic_tools_generate_messages_py.dir
+/home/genesis/code/ROS/catkin_ws/build/vision/face_recognition/CMakeFiles/update.dir
 /home/genesis/code/ROS/catkin_ws/build/vision/uvc_camera/CMakeFiles/uvc_camera_node.dir
 /home/genesis/code/ROS/catkin_ws/build/vision/uvc_camera/CMakeFiles/uvc_stereo_node.dir

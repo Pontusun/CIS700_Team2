@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "simple_talker")
+set(simple_talker_MAINTAINER "genesis <genesis@todo.todo>")
+set(simple_talker_DEPRECATED "")
+set(simple_talker_VERSION "0.0.0")
+set(simple_talker_BUILD_DEPENDS "roscpp" "rospy" "std_msgs")
+set(simple_talker_RUN_DEPENDS "roscpp" "rospy" "std_msgs")
+set(simple_talker_BUILDTOOL_DEPENDS "catkin")

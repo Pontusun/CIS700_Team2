@@ -1,0 +1,8 @@
+prefix=/home/genesis/code/ROS/catkin_ws/devel
+
+Name: simple_talker
+Description: Description of simple_talker
+Version: 0.0.0
+Cflags: 
+Libs: -L/home/genesis/code/ROS/catkin_ws/devel/lib 
+Requires: 

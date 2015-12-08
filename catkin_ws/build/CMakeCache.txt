@@ -48,7 +48,7 @@ Boost_THREAD_LIBRARY_DEBUG:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_thread.so
 Boost_THREAD_LIBRARY_RELEASE:FILEPATH=/usr/lib/x86_64-linux-gnu/libboost_thread.so
 
 //List of ';' separated packages to exclude
-CATKIN_BLACKLIST_PACKAGES:STRING=snap_low_level_detectors
+CATKIN_BLACKLIST_PACKAGES:STRING=
 
 //catkin devel space
 CATKIN_DEVEL_PREFIX:PATH=/home/genesis/code/ROS/catkin_ws/devel
@@ -328,12 +328,6 @@ actionlib_DIR:PATH=/opt/ros/indigo/share/actionlib/cmake
 //The directory containing a CMake configuration file for actionlib_msgs.
 actionlib_msgs_DIR:PATH=/opt/ros/indigo/share/actionlib_msgs/cmake
 
-//Value Computed by CMake
-beginner_tutorials_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/beginner_tutorials
-
-//Value Computed by CMake
-beginner_tutorials_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/beginner_tutorials
-
 //The directory containing a CMake configuration file for bond.
 bond_DIR:PATH=/opt/ros/indigo/share/bond/cmake
 
@@ -342,12 +336,6 @@ bondcpp_DIR:PATH=/opt/ros/indigo/share/bondcpp/cmake
 
 //The directory containing a CMake configuration file for camera_info_manager.
 camera_info_manager_DIR:PATH=/opt/ros/indigo/share/camera_info_manager/cmake
-
-//Value Computed by CMake
-camera_umd_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/camera_umd/camera_umd
-
-//Value Computed by CMake
-camera_umd_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/camera_umd/camera_umd
 
 //The directory containing a CMake configuration file for catkin.
 catkin_DIR:PATH=/opt/ros/indigo/share/catkin/cmake
@@ -396,8 +384,6 @@ face_detection_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/fac
 
 //Value Computed by CMake
 face_recognition_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/face_recognition
-
-face_recognition_DIR:PATH=
 
 //Value Computed by CMake
 face_recognition_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/face_recognition
@@ -484,47 +470,14 @@ hector_path_follower_LIB_DEPENDS:STATIC=
 //Value Computed by CMake
 hector_path_follower_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/hector_navigation/hector_path_follower
 
-//Value Computed by CMake
-image_geometry_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/vision_opencv/image_geometry
-
-//Dependencies for the target
-image_geometry_LIB_DEPENDS:STATIC=general;opencv_videostab;general;opencv_video;general;opencv_superres;general;opencv_stitching;general;opencv_photo;general;opencv_ocl;general;opencv_objdetect;general;opencv_ml;general;opencv_legacy;general;opencv_imgproc;general;opencv_highgui;general;opencv_gpu;general;opencv_flann;general;opencv_features2d;general;opencv_core;general;opencv_contrib;general;opencv_calib3d;
-
-//Value Computed by CMake
-image_geometry_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/vision_opencv/image_geometry
-
 //The directory containing a CMake configuration file for image_transport.
 image_transport_DIR:PATH=/opt/ros/indigo/share/image_transport/cmake
-
-//Value Computed by CMake
-jpeg_streamer_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/camera_umd/jpeg_streamer
-
-//Value Computed by CMake
-jpeg_streamer_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/camera_umd/jpeg_streamer
 
 //The directory containing a CMake configuration file for laser_geometry.
 laser_geometry_DIR:PATH=/opt/ros/indigo/share/laser_geometry/cmake
 
 //Path to a library.
 lib:FILEPATH=/opt/ros/indigo/lib/libvoxel_grid.so
-
-//The directory containing a CMake configuration file for libuvc.
-libuvc_DIR:PATH=/opt/ros/indigo/lib/cmake/libuvc
-
-//Value Computed by CMake
-libuvc_camera_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/libuvc_camera
-
-//Value Computed by CMake
-libuvc_camera_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/libuvc_camera
-
-//Dependencies for the target
-libuvc_camera_nodelet_LIB_DEPENDS:STATIC=general;/opt/ros/indigo/lib/libuvc.so;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/opt/ros/indigo/lib/libcamera_info_manager.so;general;/opt/ros/indigo/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/indigo/lib/libimage_transport.so;general;/opt/ros/indigo/lib/libmessage_filters.so;general;/opt/ros/indigo/lib/libnodeletlib.so;general;/opt/ros/indigo/lib/libbondcpp.so;general;/usr/lib/x86_64-linux-gnu/libuuid.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/indigo/lib/libclass_loader.so;general;/usr/lib/libPocoFoundation.so;general;/usr/lib/x86_64-linux-gnu/libdl.so;general;/opt/ros/indigo/lib/libroslib.so;general;/opt/ros/indigo/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libboost_signals.so;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so;general;/opt/ros/indigo/lib/librosconsole.so;general;/opt/ros/indigo/lib/librosconsole_log4cxx.so;general;/opt/ros/indigo/lib/librosconsole_backend_interface.so;general;/usr/lib/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so;general;/opt/ros/indigo/lib/libxmlrpcpp.so;general;/opt/ros/indigo/lib/libroscpp_serialization.so;general;/opt/ros/indigo/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so;general;/opt/ros/indigo/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so;
-
-//Value Computed by CMake
-libuvc_ros_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/libuvc_ros/libuvc_ros
-
-//Value Computed by CMake
-libuvc_ros_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/libuvc_ros/libuvc_ros
 
 //The directory containing a CMake configuration file for map_msgs.
 map_msgs_DIR:PATH=/opt/ros/indigo/share/map_msgs/cmake
@@ -555,21 +508,6 @@ object_detection_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision
 
 //Value Computed by CMake
 object_detection_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/object_detection
-
-//Value Computed by CMake
-opencv_apps_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/vision_opencv/opencv_apps
-
-//Dependencies for the target
-opencv_apps_LIB_DEPENDS:STATIC=general;cv_bridge;general;/usr/lib/x86_64-linux-gnu/libopencv_videostab.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_video.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_superres.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_stitching.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_photo.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_ocl.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_objdetect.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_ml.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_legacy.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_imgproc.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_highgui.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_gpu.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_flann.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_features2d.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_core.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_contrib.so.2.4.8;general;/usr/lib/x86_64-linux-gnu/libopencv_calib3d.so.2.4.8;general;/opt/ros/indigo/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/indigo/lib/libimage_transport.so;general;/opt/ros/indigo/lib/libmessage_filters.so;general;/opt/ros/indigo/lib/libnodeletlib.so;general;/opt/ros/indigo/lib/libbondcpp.so;general;/usr/lib/x86_64-linux-gnu/libuuid.so;general;/usr/lib/x86_64-linux-gnu/libtinyxml.so;general;/opt/ros/indigo/lib/libclass_loader.so;general;/usr/lib/libPocoFoundation.so;general;/usr/lib/x86_64-linux-gnu/libdl.so;general;/opt/ros/indigo/lib/libroslib.so;general;/opt/ros/indigo/lib/libroscpp.so;general;/usr/lib/x86_64-linux-gnu/libboost_signals.so;general;/usr/lib/x86_64-linux-gnu/libboost_filesystem.so;general;/opt/ros/indigo/lib/librosconsole.so;general;/opt/ros/indigo/lib/librosconsole_log4cxx.so;general;/opt/ros/indigo/lib/librosconsole_backend_interface.so;general;/usr/lib/liblog4cxx.so;general;/usr/lib/x86_64-linux-gnu/libboost_regex.so;general;/opt/ros/indigo/lib/libroscpp_serialization.so;general;/opt/ros/indigo/lib/librostime.so;general;/usr/lib/x86_64-linux-gnu/libboost_date_time.so;general;/opt/ros/indigo/lib/libxmlrpcpp.so;general;/opt/ros/indigo/lib/libcpp_common.so;general;/usr/lib/x86_64-linux-gnu/libboost_system.so;general;/usr/lib/x86_64-linux-gnu/libboost_thread.so;general;/usr/lib/x86_64-linux-gnu/libpthread.so;general;/usr/lib/x86_64-linux-gnu/libconsole_bridge.so;general;opencv_videostab;general;opencv_video;general;opencv_superres;general;opencv_stitching;general;opencv_photo;general;opencv_ocl;general;opencv_objdetect;general;opencv_ml;general;opencv_legacy;general;opencv_imgproc;general;opencv_highgui;general;opencv_gpu;general;opencv_flann;general;opencv_features2d;general;opencv_core;general;opencv_contrib;general;opencv_calib3d;
-
-//Value Computed by CMake
-opencv_apps_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/vision_opencv/opencv_apps
-
-//Value Computed by CMake
-opencv_tests_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/vision_opencv/opencv_tests
-
-//Value Computed by CMake
-opencv_tests_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/vision_opencv/opencv_tests
 
 //The directory containing a CMake configuration file for pcl_conversions.
 pcl_conversions_DIR:PATH=/opt/ros/indigo/share/pcl_conversions/cmake
@@ -634,22 +572,14 @@ rostime_DIR:PATH=/opt/ros/indigo/share/rostime/cmake
 //The directory containing a CMake configuration file for sensor_msgs.
 sensor_msgs_DIR:PATH=/opt/ros/indigo/share/sensor_msgs/cmake
 
+//Value Computed by CMake
+simple_talker_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/simple_talker
+
+//Value Computed by CMake
+simple_talker_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/simple_talker
+
 //The directory containing a CMake configuration file for smclib.
 smclib_DIR:PATH=/opt/ros/indigo/share/smclib/cmake
-
-//Value Computed by CMake
-snap_low_level_detectors_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/snap_low_level_detectors
-
-//Value Computed by CMake
-snap_low_level_detectors_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/snap_low_level_detectors
-
-//Value Computed by CMake
-snap_vision_msgs_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/snap_vision_msgs
-
-snap_vision_msgs_DIR:PATH=
-
-//Value Computed by CMake
-snap_vision_msgs_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/snap_vision_msgs
 
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/indigo/share/std_msgs/cmake
@@ -677,12 +607,6 @@ uvc_camera_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/uvc_c
 
 //Value Computed by CMake
 uvc_camera_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/uvc_camera
-
-//Value Computed by CMake
-vision_opencv_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/vision_opencv/vision_opencv
-
-//Value Computed by CMake
-vision_opencv_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/vision_opencv/vision_opencv
 
 //The directory containing a CMake configuration file for voxel_grid.
 voxel_grid_DIR:PATH=/opt/ros/indigo/share/voxel_grid/cmake
@@ -713,8 +637,6 @@ Boost_SYSTEM_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 Boost_THREAD_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: Boost_THREAD_LIBRARY_RELEASE
 Boost_THREAD_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
-//MODIFIED property for variable: CATKIN_BLACKLIST_PACKAGES
-CATKIN_BLACKLIST_PACKAGES-MODIFIED:INTERNAL=ON
 //catkin environment
 CATKIN_ENV:INTERNAL=/home/genesis/code/ROS/catkin_ws/build/catkin_generated/env_cached.sh
 CATKIN_TEST_RESULTS_DIR:INTERNAL=/home/genesis/code/ROS/catkin_ws/build/test_results
@@ -814,7 +736,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=17
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=18
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

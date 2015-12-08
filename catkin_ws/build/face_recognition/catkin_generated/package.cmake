@@ -1,7 +1,0 @@
-set(_CATKIN_CURRENT_PACKAGE "face_recognition")
-set(face_recognition_MAINTAINER "team2 <parallels@todo.todo>")
-set(face_recognition_DEPRECATED "")
-set(face_recognition_VERSION "0.0.0")
-set(face_recognition_BUILD_DEPENDS "message_generation" "roscpp" "rospy" "std_msgs")
-set(face_recognition_RUN_DEPENDS "message_runtime" "roscpp" "rospy" "std_msgs")
-set(face_recognition_BUILDTOOL_DEPENDS "catkin")

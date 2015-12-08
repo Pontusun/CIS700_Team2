@@ -279,18 +279,18 @@ face_recognition_genpy/fast:
 .PHONY : face_recognition_genpy/fast
 
 # Convenience name for target.
-vision/face_recognition/CMakeFiles/facerec.dir/rule:
-	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision/face_recognition/CMakeFiles/facerec.dir/rule
-.PHONY : vision/face_recognition/CMakeFiles/facerec.dir/rule
+vision/face_recognition/CMakeFiles/update.dir/rule:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 vision/face_recognition/CMakeFiles/update.dir/rule
+.PHONY : vision/face_recognition/CMakeFiles/update.dir/rule
 
 # Convenience name for target.
-facerec: vision/face_recognition/CMakeFiles/facerec.dir/rule
-.PHONY : facerec
+update: vision/face_recognition/CMakeFiles/update.dir/rule
+.PHONY : update
 
 # fast build rule for target.
-facerec/fast:
-	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/facerec.dir/build.make vision/face_recognition/CMakeFiles/facerec.dir/build
-.PHONY : facerec/fast
+update/fast:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/update.dir/build.make vision/face_recognition/CMakeFiles/update.dir/build
+.PHONY : update/fast
 
 src/face/face_recognition.o: src/face/face_recognition.cpp.o
 .PHONY : src/face/face_recognition.o
@@ -316,29 +316,29 @@ src/face/face_recognition.cpp.s:
 	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/face_recognition.dir/build.make vision/face_recognition/CMakeFiles/face_recognition.dir/src/face/face_recognition.cpp.s
 .PHONY : src/face/face_recognition.cpp.s
 
-src/face/facerec.o: src/face/facerec.cpp.o
-.PHONY : src/face/facerec.o
+src/face/update.o: src/face/update.cpp.o
+.PHONY : src/face/update.o
 
 # target to build an object file
-src/face/facerec.cpp.o:
-	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/facerec.dir/build.make vision/face_recognition/CMakeFiles/facerec.dir/src/face/facerec.cpp.o
-.PHONY : src/face/facerec.cpp.o
+src/face/update.cpp.o:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/update.dir/build.make vision/face_recognition/CMakeFiles/update.dir/src/face/update.cpp.o
+.PHONY : src/face/update.cpp.o
 
-src/face/facerec.i: src/face/facerec.cpp.i
-.PHONY : src/face/facerec.i
+src/face/update.i: src/face/update.cpp.i
+.PHONY : src/face/update.i
 
 # target to preprocess a source file
-src/face/facerec.cpp.i:
-	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/facerec.dir/build.make vision/face_recognition/CMakeFiles/facerec.dir/src/face/facerec.cpp.i
-.PHONY : src/face/facerec.cpp.i
+src/face/update.cpp.i:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/update.dir/build.make vision/face_recognition/CMakeFiles/update.dir/src/face/update.cpp.i
+.PHONY : src/face/update.cpp.i
 
-src/face/facerec.s: src/face/facerec.cpp.s
-.PHONY : src/face/facerec.s
+src/face/update.s: src/face/update.cpp.s
+.PHONY : src/face/update.s
 
 # target to generate assembly for a file
-src/face/facerec.cpp.s:
-	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/facerec.dir/build.make vision/face_recognition/CMakeFiles/facerec.dir/src/face/facerec.cpp.s
-.PHONY : src/face/facerec.cpp.s
+src/face/update.cpp.s:
+	cd /home/genesis/code/ROS/catkin_ws/build && $(MAKE) -f vision/face_recognition/CMakeFiles/update.dir/build.make vision/face_recognition/CMakeFiles/update.dir/src/face/update.cpp.s
+.PHONY : src/face/update.cpp.s
 
 # Help Target
 help:
@@ -356,19 +356,19 @@ help:
 	@echo "... face_recognition_generate_messages_py"
 	@echo "... face_recognition_genlisp"
 	@echo "... face_recognition_genpy"
-	@echo "... facerec"
 	@echo "... install"
 	@echo "... install/local"
 	@echo "... install/strip"
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... update"
 	@echo "... src/face/face_recognition.o"
 	@echo "... src/face/face_recognition.i"
 	@echo "... src/face/face_recognition.s"
-	@echo "... src/face/facerec.o"
-	@echo "... src/face/facerec.i"
-	@echo "... src/face/facerec.s"
+	@echo "... src/face/update.o"
+	@echo "... src/face/update.i"
+	@echo "... src/face/update.s"
 .PHONY : help
 
 

@@ -7,6 +7,7 @@
 #include <actionlib/client/simple_action_client.h>
 #include <geometry_msgs/Twist.h>
 #include <nav_msgs/Odometry.h>
+#include <std_msgs/String.h>
 // #include "face_recognition/Loc.h"
 
 // Libraries
@@ -27,7 +28,8 @@ public:
     Controller(ros::NodeHandle& nh){
         //set up subscribers and publishers here (change callbacks)
         commandPub = nh.advertise < geometry_msgs::Twist > ("cmd_vel", 1);
-        //faceSub = nh.subscribe("", 1, &Controller::detectFace, this);
+        objectSub = nh.subscribe("caffe_ret", 1, &Controller::detectObject, this);
+	//faceSub = nh.subscribe("", 1, &Controller::detectFace, this);
         //laserSub = nh.subscribe("base_scan", 1, &Controller::commandCallback,this);
         //timer = nh.createTimer(ros::Duration(0.1), &Controller::timerCallback,this);
         
@@ -133,9 +135,13 @@ public:
 */   
   
     // TODO: Additional Vision subscribers  
-    /*
-    void detectObject(const detect_Object::Loc::ConstPtr& msg){
+   
+   
+     void detectObject(const std_msgs::String::ConstPtr& msg){
+	ROS_INFO("caffe says: [%s]", msg->data.c_str());
     }
+    
+    /*
     void detectHuman(const detect_Human::Loc::ConstPtr& msg){
     }
     */
@@ -151,8 +157,8 @@ public:
     void spin(){
         ros::Rate rate(50);
         while (ros::ok()) {
-        	//this->navigationExplore();
-		this->goal(1.0,0.0,0.0);
+        	this->navigationExplore();
+		//this->goal(1.0,0.0,0.0);
 
             // TODO: Fill in task logic here
                         
@@ -166,6 +172,7 @@ protected:
 	ros::Publisher commandPub; // Publisher to the simulated robot's velocity command topic
 	ros::Publisher faceSub; // Publisher to face detection
 	ros::Subscriber laserSub; // Subscriber to the simulated robot's laser scan topic
+	ros::Subscriber objectSub;
 	ros::Time rotateStartTime; // Start time of the rotation
 	ros::Duration rotateDuration; // Duration of the rotation
 	ros::Timer timer;

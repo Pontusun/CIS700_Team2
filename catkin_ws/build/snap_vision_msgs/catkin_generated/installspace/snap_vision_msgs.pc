@@ -1,8 +1,0 @@
-prefix=/home/genesis/code/ROS/catkin_ws/install
-
-Name: snap_vision_msgs
-Description: Description of snap_vision_msgs
-Version: 0.0.0
-Cflags: -I/home/genesis/code/ROS/catkin_ws/install/include
-Libs: -L/home/genesis/code/ROS/catkin_ws/install/lib 
-Requires: actionlib sensor_msgs

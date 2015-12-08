@@ -803,17 +803,17 @@ face_recognition_genpy/fast:
 .PHONY : face_recognition_genpy/fast
 
 #=============================================================================
-# Target rules for targets named facerec
+# Target rules for targets named update
 
 # Build rule for target.
-facerec: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 facerec
-.PHONY : facerec
+update: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 update
+.PHONY : update
 
 # fast build rule for target.
-facerec/fast:
-	$(MAKE) -f vision/face_recognition/CMakeFiles/facerec.dir/build.make vision/face_recognition/CMakeFiles/facerec.dir/build
-.PHONY : facerec/fast
+update/fast:
+	$(MAKE) -f vision/face_recognition/CMakeFiles/update.dir/build.make vision/face_recognition/CMakeFiles/update.dir/build
+.PHONY : update/fast
 
 #=============================================================================
 # Target rules for targets named cv_bridge
@@ -1022,6 +1022,19 @@ image_converter: cmake_check_build_system
 image_converter/fast:
 	$(MAKE) -f vision/ros_cv/CMakeFiles/image_converter.dir/build.make vision/ros_cv/CMakeFiles/image_converter.dir/build
 .PHONY : image_converter/fast
+
+#=============================================================================
+# Target rules for targets named simple_talker
+
+# Build rule for target.
+simple_talker: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 simple_talker
+.PHONY : simple_talker
+
+# fast build rule for target.
+simple_talker/fast:
+	$(MAKE) -f simple_talker/CMakeFiles/simple_talker.dir/build.make simple_talker/CMakeFiles/simple_talker.dir/build
+.PHONY : simple_talker/fast
 
 #=============================================================================
 # Target rules for targets named hector_path_follower
@@ -1528,7 +1541,7 @@ help:
 	@echo "... face_recognition_generate_messages_py"
 	@echo "... face_recognition_genlisp"
 	@echo "... face_recognition_genpy"
-	@echo "... facerec"
+	@echo "... update"
 	@echo "... cv_bridge"
 	@echo "... cv_bridge_boost"
 	@echo "... _run_tests_cv_bridge"
@@ -1545,6 +1558,7 @@ help:
 	@echo "... face_detection"
 	@echo "... ros_caffe_test"
 	@echo "... image_converter"
+	@echo "... simple_talker"
 	@echo "... hector_path_follower"
 	@echo "... hector_path_follower_node"
 	@echo "... simple_exploration_controller"
