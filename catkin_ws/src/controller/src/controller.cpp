@@ -41,6 +41,12 @@ public:
 		while(!mb_ac->waitForServer(ros::Duration(5.0))) { 
   			ROS_INFO("Waiting for the move_base action server to come up"); 
   		}
+	
+	//configurations
+	objectTargets.push_back("keyboard");
+	objectTargets.push_back("ball");
+	detect_face = false;
+	detect_obj = false;
     }
     
     // destructor
@@ -139,6 +145,21 @@ public:
    
      void detectObject(const std_msgs::String::ConstPtr& msg){
 	ROS_INFO("caffe says: [%s]", msg->data.c_str());
+	// extract information from message
+	std::string line;
+	std::string object;
+
+	line = msg->data.c_str();	
+	object = line.substr(line.find_first_of(" \t")+1);
+	//float objProbability;
+	//objProbability = std::stof(line.substr(0,line.find_first_of(" \t")));
+	ROS_INFO_STREAM("Current CAFFE object: " << object);
+	for (int i =0; i<this->objectTargets.size(); i++) {
+		if (object.find(this->objectTargets[i])!= std::string::npos){
+			ROS_INFO_STREAM("FOUND: " << object);
+			this->detect_obj = true;
+		}
+	}
     }
     
     /*
@@ -157,12 +178,18 @@ public:
     void spin(){
         ros::Rate rate(50);
         while (ros::ok()) {
-        	this->navigationExplore();
-		//this->goal(1.0,0.0,0.0);
+            if (this->detect_obj == false){
+	    this->navigationExplore();
+	    //this->goal(1.0,0.0,0.0);
+	    //this->move(0.25,0.0);
+	    }
 
             // TODO: Fill in task logic here
-                        
-            ros::spinOnce();
+            else{
+	    	this->move(0.0,0.0);            
+            	ROS_INFO("object found, turtlebot stopping");
+	    }
+	    ros::spinOnce();
             rate.sleep();
         }
     }
@@ -188,7 +215,9 @@ protected:
 
 	// flags and states	
 	//enum FSM state;
+	std::vector<std::string> objectTargets;
 	bool detect_face;
+	bool detect_obj;
 
 };
 
