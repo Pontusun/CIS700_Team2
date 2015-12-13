@@ -132,6 +132,9 @@ public:
         //write scv file
         outFile << facedir << "/" << index <<".pgm;" << label <<endl;  
         index++;
+	if (index > 100){
+	  exit(1);
+	}
       }
 
  

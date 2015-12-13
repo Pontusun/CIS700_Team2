@@ -7,40 +7,61 @@
 #include <opencv2/objdetect/objdetect.hpp>
 #include <iostream>
 #include <stdio.h>
+#include "std_msgs/Int8.h"
+
 using namespace cv;
+using namespace std;
 static const std::string OPENCV_WINDOW = "Image window";
 
 class ImageConverter
 {
   ros::NodeHandle nh_;
+  ros::NodeHandle n;
   image_transport::ImageTransport it_;
   image_transport::Subscriber image_sub_;
   image_transport::Publisher image_pub_;
   // Set cascades
   string face_cascade_name;
   CascadeClassifier face_cascade;
+  
+  string lbp_face_cascade_name;
+  CascadeClassifier lbp_face_cascade;
   //set face vector
-  std::vector<Rect> faces;  
+  std::vector<Rect> faces;
+  std::vector<Rect> lbp_faces;
+  std::vector<Rect> real_faces;
   //set gray frame
   Mat frame_gray;
+  //ros message
+  std_msgs::Int8 count;
+  ros::Publisher facecount_pub; 
  
 public:
   ImageConverter()
     : it_(nh_)
   {
-    face_cascade_name = "/home/genesis/code/ROS/catkin_ws/src/vision/face_detection/haarcascade_frontalface_alt2.xml";
+    face_cascade_name = "/home/genesis/code/ROS/catkin_ws/src/vision/data/haarcascades/haarcascade_frontalface_alt2.xml";
+    lbp_face_cascade_name = "/home/genesis/code/ROS/catkin_ws/src/vision/data/lbpcascades/lbpcascade_frontalface.xml";      
+
     
     // Load the cascades
     if( !face_cascade.load( face_cascade_name ) )
     {
       printf("--(!)Error loading\n");
     }
-     
+     if( !lbp_face_cascade.load( lbp_face_cascade_name ) )
+    {
+      printf("--(!)Error loading\n");
+    }
     
     // Subscrive to input video feed and publish output video feed
     image_sub_ = it_.subscribe("/camera/image_raw", 1, 
       &ImageConverter::imageCb, this);
     image_pub_ = it_.advertise("/face_detection/output_video", 1);
+
+    // publish something
+    facecount_pub =n.advertise<std_msgs::Int8>("facecount", 1000);
+    
 
    // cv::namedWindow(OPENCV_WINDOW);
   }
@@ -68,20 +89,51 @@ public:
     equalizeHist(frame_gray, frame_gray);
     
     //detect face
-    face_cascade.detectMultiScale( frame_gray, faces, 1.05, 6, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
+    face_cascade.detectMultiScale( frame_gray, faces, 1.05, 4, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
+     lbp_face_cascade.detectMultiScale( frame_gray, lbp_faces, 1.05, 5, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
     
-    //draw rectangle face on original image
-      for( size_t i = 0; i < faces.size(); i++ ) 
+     real_faces.clear(); 
+      //draw rectangle face on original image
+      /*for( size_t i = 0; i < faces.size(); i++ ) 
       {  
 	 rectangle(cv_ptr -> image, faces[i], CV_RGB(255,255,255),1);
       }
- 
+     
+      for( size_t i = 0; i < lbp_faces.size(); i++ ) 
+      {  
+	 rectangle(cv_ptr -> image, lbp_faces[i], CV_RGB(255,0,0),1);
+      }
+      */
+
+	
+      for( size_t i = 0; i < faces.size(); i++ ) 
+      {  
+	 for( size_t j = 0; j < lbp_faces.size(); j++) 
+	 {
+             if ((faces[i].x + 0.5* faces[i].width) > lbp_faces[j].x 
+		    && (faces[i].x + 0.5* faces[i].width) < lbp_faces[j].x + lbp_faces[j].width
+			&& (faces[i].y + 0.5* faces[i].height) > lbp_faces[j].y 
+			    && (faces[i].y + 0.5* faces[i].height) < lbp_faces[j].y + lbp_faces[j].height )
+		
+		real_faces.push_back(faces[i]);
+	 }
+      }     
+
+      for( size_t i = 0; i < real_faces.size(); i++ ) 
+      {  
+	 rectangle(cv_ptr -> image, real_faces[i], CV_RGB(255,255,255),1);
+      }
+
+
     // Update GUI Window
    // cv::imshow(OPENCV_WINDOW, frame_gray);
     cv::waitKey(3);
     
     // Output modified video stream
     image_pub_.publish(cv_ptr->toImageMsg()); 
+    // publish ros messages
+    count.data = faces.size();
+    facecount_pub.publish(count);
   }
 };
 
