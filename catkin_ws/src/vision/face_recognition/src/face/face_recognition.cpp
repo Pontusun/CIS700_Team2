@@ -263,6 +263,8 @@ public:
     //publish face topic
     facecount.data = real_faces.size();
     facecount_pub.publish(facecount); 
+    facelabel_pub.publish(facelabel);
+    location_pub.publish(location); 
   }
 };
 
