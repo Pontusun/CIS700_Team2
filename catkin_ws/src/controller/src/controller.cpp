@@ -248,6 +248,7 @@ public:
     	
     	std::vector<double> navGoal = this->coordinates[location]; // [x,y,yaw]
         std::vector<double> homeBase = this->coordinates["grasp_lab"]; 
+
         this->objectTargets.push_back("keyboard");
         this->objectTargets.push_back("ball");
         this->objectTargets.push_back(object);
