@@ -26,12 +26,21 @@ class ImageConverter
   // Set cascades
   string face_cascade_name;
   CascadeClassifier face_cascade;
+
+  string lbp_face_cascade_name;
+  CascadeClassifier lbp_face_cascade;
+
   //set face vector
-  std::vector<Rect> faces;  
+  std::vector<Rect> faces; 
+  std::vector<Rect> lbp_faces;
+  std::vector<Rect> real_faces;
+
+ 
   //set gray frame
   Mat frame_gray;
   string facedir;
   int index;
+  int max_index;
   int label;
   ofstream outFile;
  
@@ -44,8 +53,13 @@ public:
     label = -1;
     nh_.getParam("label", label);
     ROS_INFO("label %d", label);
-
+    
+    nh_.getParam("index", index);
+    ROS_INFO("index %d", index);
+    max_index = index + 100;
+  
     face_cascade_name = "/home/genesis/code/ROS/catkin_ws/src/vision/face_detection/haarcascade_frontalface_alt2.xml";
+    lbp_face_cascade_name = "/home/genesis/code/ROS/catkin_ws/src/vision/data/lbpcascades/lbpcascade_frontalface.xml";
 
     facedir = format("/home/genesis/code/ROS/catkin_ws/src/vision/face_recognition/src/face/face/%d",label);
 
@@ -56,6 +70,12 @@ public:
     {
       printf("--(!)Error loading\n");
     }
+     
+    if( !lbp_face_cascade.load( lbp_face_cascade_name ) )
+    {
+      printf("--(!)Error loading\n");
+    }
+
      
     //create now folder
     int status;
@@ -96,6 +116,7 @@ public:
 
   void imageCb(const sensor_msgs::ImageConstPtr& msg)
   {
+    real_faces.clear();
     cv_bridge::CvImagePtr cv_ptr;
     try
     {
@@ -113,26 +134,42 @@ public:
     
     //detect face
     face_cascade.detectMultiScale( frame_gray, faces, 1.05, 6, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
-
-
+  
+    lbp_face_cascade.detectMultiScale( frame_gray, lbp_faces, 1.05, 5, 0|CASCADE_SCALE_IMAGE, Size(30, 30));   
     
+      //reduce noise 
+      for( size_t i = 0; i < faces.size(); i++ )
+      {
+         for( size_t j = 0; j < lbp_faces.size(); j++)
+         {
+             if ((faces[i].x + 0.5* faces[i].width) > lbp_faces[j].x
+                    && (faces[i].x + 0.5* faces[i].width) < lbp_faces[j].x + lbp_faces[j].width
+                        && (faces[i].y + 0.5* faces[i].height) > lbp_faces[j].y
+                            && (faces[i].y + 0.5* faces[i].height) < lbp_faces[j].y + lbp_faces[j].height )
+
+                real_faces.push_back(faces[i]);
+               // cerr << faces[i].x<<endl;
+         }
+      }
+
+
     //draw rectangle face on original image
-      for( size_t i = 0; i < faces.size(); i++ ) 
+      for( size_t i = 0; i < real_faces.size(); i++ ) 
       {  
 
-        Mat face = frame_gray(faces[i]);
+        Mat face = frame_gray(real_faces[i]);
         Mat face_resized;
         cv::resize(face, face_resized, Size(92, 112), 1.0, 1.0, INTER_CUBIC);
         face_resized = norm_0_255(face_resized);
         imshow("face",face_resized);
-	      rectangle(cv_ptr -> image, faces[i], CV_RGB(255,255,255),1);
+	      rectangle(cv_ptr -> image, real_faces[i], CV_RGB(255,255,255),1);
 
         //add face to the folder
         imwrite(format("%s/%d.pgm", facedir.c_str(), index), face_resized);
         //write scv file
         outFile << facedir << "/" << index <<".pgm;" << label <<endl;  
         index++;
-	if (index > 100){
+	if (index > max_index){
 	  exit(1);
 	}
       }

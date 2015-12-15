@@ -1,0 +1,32 @@
+
+<launch>
+  <!-- Start turtlebot -->
+  <include file="$(find turtlebot_bringup)/launch/minimal.launch"/>
+  <include file="$(find turtlebot_bringup)/launch/3dsensor.launch"/>
+
+  <!--- Run gmapping -->
+  <!-- <include file="../src/hector_navigation/hector_exploration_controller/launch/gmapping.launch.xml"/> -->
+
+  <!-- Run AMCL --> 
+  <!-- Map server -->
+  <arg name="map_file" default="/home/genesis/code/ROS/catkin_ws/include/map_levine4th.yaml"/>
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+  <arg name="initial_pose_x" default="2.40424320025"/>
+  <arg name="initial_pose_y" default="1.33934123128"/>
+  <arg name="initial_pose_a" default="3.3"/>
+  <include file="$(find turtlebot_navigation)/launch/includes/amcl.launch.xml">
+    <arg name="initial_pose_x" value="$(arg initial_pose_x)"/>
+    <arg name="initial_pose_y" value="$(arg initial_pose_y)"/>
+    <arg name="initial_pose_a" value="$(arg initial_pose_a)"/>
+  </include>  
+
+  <!-- Move base -->
+  <include file="$(find turtlebot_navigation)/launch/includes/move_base.launch.xml"/>
+
+  <!-- Run planner -->
+  <include file="../src/hector_navigation/hector_exploration_node/launch/exploration_planner.launch"/>
+  
+  <!-- Run Webcam -->
+  <include file="../src/vision/uvc_camera/launch/camera_node.launch"/>
+ 
+</launch>

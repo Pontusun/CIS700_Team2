@@ -112,7 +112,7 @@ public:
     
     cerr << "Start traing@!" << sizeof(images) <<endl;
     // Create a FaceRecognizer and train it on the given images:
-    model = createFisherFaceRecognizer(0,300);
+    model = createFisherFaceRecognizer(0,400);
     // model = createLBPHFaceRecognizer();
     model->train(images, labels);
     cerr << "Train Complete" << labels[1] << endl; 
@@ -128,13 +128,13 @@ public:
     location_pub = n3.advertise<face_recognition::Loc>("location", 1000);
 
     //instrinsic parameters
-    float f = 867;
-    float v0 = 240;
-    float u0 = 320;
+    f = 644.5;
+    v0 = 247.24;
+    u0 = 320.8;
 
-    float Xc = 0;
-    float Yc = 0;
-    float Zc = 0;
+    Xc = 0;
+    Yc = 0;
+    Zc = 0;
   }
 
   ~ImageConverter()
@@ -186,8 +186,8 @@ public:
     equalizeHist(frame_gray, frame_gray);
     
     //detect face
-    face_cascade.detectMultiScale( frame_gray, faces, 1.05, 5, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
-    lbp_face_cascade.detectMultiScale( frame_gray, lbp_faces, 1.05, 5, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
+    face_cascade.detectMultiScale( frame_gray, faces, 1.1, 6, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
+    lbp_face_cascade.detectMultiScale( frame_gray, lbp_faces, 1.1, 6, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
     //reduce noise 
       for( size_t i = 0; i < faces.size(); i++ )
       {
@@ -223,7 +223,7 @@ public:
       int prediction = -1;
       double confidence = 0.0;
       model->predict(face_resized, prediction, confidence);
-       cerr << "Confidence: "<< confidence << endl;
+      // cerr << "Confidence: "<< confidence << endl;
       // Create the text we will annotate the box with:
       string box_text = format("Prediction = %d", prediction);
       
@@ -235,7 +235,8 @@ public:
       putText(cv_ptr -> image, box_text, Point(pos_x, pos_y), FONT_HERSHEY_PLAIN, 1.0, CV_RGB(0,255,0), 2.0);
      
       //calculate the position of face
-      Zc = 0.15 * f / face_i.width;
+      Zc = 0.20 * f / face_i.width;
+      // cerr << Zc << "\t" << f << "\t" << face_i.width <<endl;
       Xc = (face_i.x + face_i.width*0.5 - u0) * Zc / f;
       Yc = (face_i.y + face_i.height*0.5 - v0) * Zc / f; 
       // put value into the topic

@@ -40,8 +40,8 @@ public:
   ImageConverter()
     : it_(nh_)
   {
-    face_cascade_name = "/home/genesis/code/ROS/catkin_ws/src/vision/data/haarcascades/haarcascade_frontalface_alt2.xml";
-    lbp_face_cascade_name = "/home/genesis/code/ROS/catkin_ws/src/vision/data/lbpcascades/lbpcascade_frontalface.xml";      
+    face_cascade_name = "/home/genesis/code/ROS/catkin_ws/src/vision/data/haarcascades/haarcascade_profileface.xml";
+    lbp_face_cascade_name = "/home/genesis/code/ROS/catkin_ws/src/vision/data/lbpcascades/lbpcascade_profileface.xml";      
 
     
     // Load the cascades
@@ -89,12 +89,12 @@ public:
     equalizeHist(frame_gray, frame_gray);
     
     //detect face
-    face_cascade.detectMultiScale( frame_gray, faces, 1.05, 4, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
-     lbp_face_cascade.detectMultiScale( frame_gray, lbp_faces, 1.05, 5, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
+    face_cascade.detectMultiScale( frame_gray, faces, 1.05, 1, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
+     lbp_face_cascade.detectMultiScale( frame_gray, lbp_faces, 1.05, 1, 0|CASCADE_SCALE_IMAGE, Size(30, 30) );
     
      real_faces.clear(); 
       //draw rectangle face on original image
-      /*for( size_t i = 0; i < faces.size(); i++ ) 
+      for( size_t i = 0; i < faces.size(); i++ ) 
       {  
 	 rectangle(cv_ptr -> image, faces[i], CV_RGB(255,255,255),1);
       }
@@ -103,7 +103,7 @@ public:
       {  
 	 rectangle(cv_ptr -> image, lbp_faces[i], CV_RGB(255,0,0),1);
       }
-      */
+      
 
 	
       for( size_t i = 0; i < faces.size(); i++ ) 
@@ -118,12 +118,12 @@ public:
 		real_faces.push_back(faces[i]);
 	 }
       }     
-
+      /*
       for( size_t i = 0; i < real_faces.size(); i++ ) 
       {  
 	 rectangle(cv_ptr -> image, real_faces[i], CV_RGB(255,255,255),1);
       }
-
+      */
 
     // Update GUI Window
    // cv::imshow(OPENCV_WINDOW, frame_gray);

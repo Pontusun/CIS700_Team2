@@ -2,12 +2,17 @@
     <node pkg="uvc_camera" type="uvc_camera_node" name="uvc_camera" output="screen">
      
      <remap from="/image_raw" to="/Lifecam/image_raw"/>
-     <param name="width" type="int" value="640" />
+      <param name="width" type="int" value="640" />
       <param name="height" type="int" value="480" />
       <param name="fps" type="int" value="30" />
-      
+      <param name="camera_info_url" value="file://$(find uvc_camera)/Lifecam.yml" />    
       <param name="device" type="string" value="/dev/video0" />  
       
     </node>   
+    
+    <node pkg = "web_video_server" type = "web_video_server" name = "web_video_server" output = "screen">
+	
+    </node>     
+
 
 </launch>

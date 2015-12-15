@@ -1,0 +1,19 @@
+image_width: 640
+image_height: 480
+camera_name: Lifecam
+camera_matrix:
+  rows: 3
+  cols: 3
+  data: [644.5, 0, 320.8, 0, 643.25, 247.24, 0, 0, 1]
+distortion_coefficients:
+  rows: 1
+  cols: 5
+  data: [-0.010477, 0.036903, -0.000884, 0.001486, 0]
+rectification_matrix:
+  rows: 3
+  cols: 3
+  data: [1, 0, 0, 0, 1, 0, 0, 0, 1]
+projection_matrix:
+  rows: 3
+  cols: 4
+  data: [644.9, 0, 321.12, 0, 0, 643.77, 246.32, 0, 0, 0, 1, 0]
