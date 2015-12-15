@@ -26,10 +26,6 @@
 // Type Definitions
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
 
-// Function Declarations
-map<std::string, std::vector<double> > coordinates();
-
-
 // Controller Class
 class Controller{
     
@@ -155,33 +151,33 @@ public:
     void getCoordinates(){
 
         // charitys office
-        std::vector<double>(3) charity;
-        charity.push_back(2.40424320025);
-        charity.push_back(1.33934123128);
-        charity.push_back(3.3); 
+        std::vector<double> charity;
+        charity.push_back(-26.81);
+        charity.push_back(1.66);
+        charity.push_back(0.0); 
 
         // jeans office
-        std::vector<double>(3) jean;
-        jean.push_back(2.40424320025);
-        jean.push_back(1.33934123128);
-        jean.push_back(3.3); 
+        std::vector<double> jean;
+        jean.push_back(-23.96);
+        jean.push_back(18.66);
+        jean.push_back(0.0); 
 
         // grasp
-        std::vector<double>(3) grasp;
+        std::vector<double> grasp;
         grasp.push_back(2.40424320025);
         grasp.push_back(1.33934123128);
         grasp.push_back(3.3); 
 
         // vending machine
-        std::vector<double>(3) vending;        
-        vending.push_back(2.0);
-        vending.push_back(-11.0);
-        vending.push_back(-1.4);
+        std::vector<double> vending;        
+        vending.push_back(24.99);
+        vending.push_back(-15.37);
+        vending.push_back(0.0);
 
-        this->coordinates['grasp_lab'] = grasp;
-        this->coordinates['charitys_office'] = charity;
-        this->coordinates['jeans_office'] = jean;
-        this->coordinates['vending_machine'] = vending;
+        this->coordinates["grasp_lab"] = grasp;
+        this->coordinates["charitys_office"] = charity;
+        this->coordinates["jeans_office"] = jean;
+        this->coordinates["vending_machine"] = vending;
     }
 
 
@@ -233,19 +229,23 @@ public:
     void spin_findObject(){
         
         // wait for user input  
-        while(userInput.compare(" ") == 0){
-            os::Duration(0.25).sleep();
+        while(this->userInput.compare(" ") == 0){
+            ros::Duration(0.25).sleep();
             ros::spinOnce();
         }
 
         // parse input 
-        std::istringstream iss(str1);
+        std::istringstream iss(this->userInput);
         std::string location;
         std::string object;
         iss >> location;
         iss >> object;
 
         // initialize variables
+	ROS_INFO_STREAM("user location " << location);
+        ROS_INFO("location_pose |  x: %lf, y: %lf, yaw: %lf", navGoal[0],navGoal[1],navGoal[2]);
+        ROS_INFO_STREAM("user object " << object);
+    	
     	std::vector<double> navGoal = this->coordinates[location]; // [x,y,yaw]
         std::vector<double> homeBase = this->coordinates["grasp_lab"]; 
         this->objectTargets.push_back("keyboard");
@@ -319,7 +319,7 @@ protected:
 	FSM fsm;
     bool detect_obj;
     bool detect_face;
-    string userInput;
+    std::string userInput;
     std::vector<std::string> objectTargets;
     std::map<std::string,std::vector<double> > coordinates;
 
