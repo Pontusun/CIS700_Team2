@@ -37,9 +37,10 @@ public:
         //publishers
         commandPub = nh.advertise < geometry_msgs::Twist > ("cmd_vel_mux/input/navi", 1);
         //androidPub = nh.advertise < std_msgs::String>("android_fb", 1000);
-
-        //subscribers
-        amclSub = nh.subscribe("amcl_pose",1, &Controller::amclCallback,this);
+        stringPub = nh.advertise < std_msgs::String > ("mouth/words" , 1);
+      
+          //subscribers
+         amclSub = nh.subscribe("amcl_pose",1, &Controller::amclCallback,this);
         caffeSub = nh.subscribe("caffe_ret", 1, &Controller::caffeCallback, this);
         objectSub = nh.subscribe("objects", 1, &Controller::objectCallback, this);
         androidSub = nh.subscribe("android_ui",1, &Controller::androidCallback, this);
@@ -329,8 +330,12 @@ public:
         std::vector<double> homeBase;
 	 bool result;
         
+        words.data = "Let's start it! Finding Yifan!";    
+        stringPub.publish(words);
+                 
         // spin loop 
         this->fsm = EXPLORE;
+        
         ros::Rate rate(50);
         while (ros::ok()) {
         	switch(fsm){
@@ -351,6 +356,8 @@ public:
         		case EXPLORE : 
         			if( detect_face == true){
         				this->fsm = FOLLOW;
+                                        words.data = "I see Yifan, start following";
+                                        stringPub.publish(words);
         				break;
                 	}
                 	this->navigationExplore();
@@ -391,6 +398,8 @@ public:
 protected:
 	// publishers and subscribers 
 	ros::Publisher commandPub; // Publisher to the simulated robot's velocity command topic
+      ros::Publisher stringPub;
+
     ros::Subscriber faceSub; // Subscriber to face detection
 	//ros::Publisher androidPub;
     ros::Subscriber objectSub;
@@ -421,7 +430,9 @@ protected:
     std::vector<float> faceLocY;
     std::vector<float> faceLocZ;
     std::vector<int> faceLabels; 
-
+   
+    // the string to publish
+    std_msgs::String words;
 };
 
 
