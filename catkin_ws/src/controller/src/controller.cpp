@@ -39,6 +39,8 @@ public:
         //faceSub = nh.subscribe("face_ret")
         amclSub = nh.subscribe("amcl_pose",1, &Controller::amclCallback,this);
         //androidSub = nh.subscribe("android_ui", &Controller::androidCallback, this);
+	caffeSub = nh.subscribe("caffe_ret", 1, &Controller::caffeCallback, this);
+        objectSub = nh.subscribe("objects", 1, &Controller::objectCallback, this);
 
         //clients
         exploration_plan_service_client_ = nh.serviceClient<hector_nav_msgs::GetRobotTrajectory>("get_exploration_path");
@@ -192,12 +194,11 @@ public:
     void spin_findObject(){
         
         // setup task specific variables 
-        caffeSub = nh.subscribe("caffe_ret", 1, &Controller::caffeCallback, this);
-        objectSub = nh.subsribe("objects", 1, &Controller::objectCallback, this);
     	std::vector<double> navGoal; // [x,y,yaw]
-		std::vector<double> homeBase;
+	std::vector<double> homeBase;
+	bool result;
   
-		// initialize variables 
+	// initialize variables 
         this->objectTargets.push_back("keyboard");
         this->objectTargets.push_back("ball");
         this->objectTargets.push_back("chair");
@@ -216,7 +217,7 @@ public:
         	switch(fsm){
 
         		case GOTO : 
-        			bool result = goal(navGoal);
+        			result = goal(navGoal);
         			if (result == true && navGoal == homeBase){
 	                    ROS_INFO("Wiggles has returned to homebase");
 	                    ROS_INFO("exiting");
@@ -230,7 +231,7 @@ public:
 
         		case EXPLORE : 
         			if( detect_obj == true){
-        				this->FSM = WAIT;
+        				this->fsm = WAIT;
         				break;
                 	}
                 	this->navigationExplore();
@@ -257,7 +258,8 @@ protected:
     //ros::Publisher androidPub;
 	ros::Publisher faceSub; // Publisher to face detection
 	ros::Subscriber objectSub;
-    ros::Subscriber amclSub;
+        ros::Subscriber amclSub;
+	ros::Subscriber caffeSub;
 	//ros::Subscriber androidSub; 
 	
 	// hector navigation data members
