@@ -49,7 +49,9 @@ public:
   		}
 
   		// controller members
-  		fsm = GOTO;
+  		fsm = GOTO; 
+        detect_obj = false;
+        detect_face = false;
 	 
     }
     
@@ -194,10 +196,11 @@ public:
         objectSub = nh.subsribe("objects", 1, &Controller::objectCallback, this);
     	std::vector<double> navGoal; // [x,y,yaw]
 		std::vector<double> homeBase;
-		std::vector<std::string> objectTargets;
-		bool detect_obj = false;
   
 		// initialize variables 
+        this->objectTargets.push_back("keyboard");
+        this->objectTargets.push_back("ball");
+        this->objectTargets.push_back("chair");
         homeBase.push_back(2.40424320025);
         homeBase.push_back(1.33934123128);
         homeBase.push_back(3.3); 
@@ -251,10 +254,10 @@ public:
 protected:
 	// publishers and subscribers 
 	ros::Publisher commandPub; // Publisher to the simulated robot's velocity command topic
-    	//ros::Publisher androidPub;
+    //ros::Publisher androidPub;
 	ros::Publisher faceSub; // Publisher to face detection
 	ros::Subscriber objectSub;
-    	ros::Subscriber amclSub;
+    ros::Subscriber amclSub;
 	//ros::Subscriber androidSub; 
 	
 	// hector navigation data members
@@ -269,6 +272,9 @@ protected:
 	// controller members
 	enum FSM {GOTO, EXPLORE, WAIT, FOLLOW};
 	FSM fsm;
+    bool detect_obj;
+    bool detect_face;
+    std::vector<std::string> objectTargets;
 };
 
 
@@ -281,26 +287,3 @@ int main(int argc, char **argv) {
     return 0;
 }
 
-/*
-	enum FSM {
-	EXPLORE; // explore environment until we have stimulus 
-	MOVE; // go to goal point
-	FACE_DET; // response to face detection
-	OBJECT_DET; // response to object detection
-	SCENE_RECOGNITION; // response to scene recognition
-	RECOVERY; // recovery behavior 
-}
-*/
-
-
-/*
-
-    	//configurations
-    	objectTargets.push_back("keyboard");
-    	objectTargets.push_back("ball");
-    	objectTargets.push_back("chair");
-
-        //states 
-    	detect_face = false;
-    	detect_obj = false;
-*/
