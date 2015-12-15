@@ -242,13 +242,13 @@ public:
         iss >> object;
 
         // initialize variables
-	ROS_INFO_STREAM("user location " << location);
-        ROS_INFO("location_pose |  x: %lf, y: %lf, yaw: %lf", navGoal[0],navGoal[1],navGoal[2]);
-        ROS_INFO_STREAM("user object " << object);
     	
     	std::vector<double> navGoal = this->coordinates[location]; // [x,y,yaw]
         std::vector<double> homeBase = this->coordinates["grasp_lab"]; 
-
+        ROS_INFO_STREAM("user location " << location);
+        ROS_INFO("location_pose |  x: %lf, y: %lf, yaw: %lf", navGoal[0],navGoal[1],navGoal[2]);
+        ROS_INFO_STREAM("user object " << object);
+        
         this->objectTargets.push_back("keyboard");
         this->objectTargets.push_back("ball");
         this->objectTargets.push_back(object);
