@@ -1,0 +1,8 @@
+prefix=/home/genesis/code/ROS/catkin_ws/devel
+
+Name: web_video_server
+Description: Description of web_video_server
+Version: 0.0.4
+Cflags: 
+Libs: -L/home/genesis/code/ROS/catkin_ws/devel/lib 
+Requires: 

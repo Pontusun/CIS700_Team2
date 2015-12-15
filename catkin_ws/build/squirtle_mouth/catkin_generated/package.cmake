@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "squirtle_mouth")
+set(squirtle_mouth_MAINTAINER "parallels <parallels@todo.todo>")
+set(squirtle_mouth_DEPRECATED "")
+set(squirtle_mouth_VERSION "0.0.0")
+set(squirtle_mouth_BUILD_DEPENDS "roscpp" "rospy" "sound_play")
+set(squirtle_mouth_RUN_DEPENDS "roscpp" "rospy" "sound_play")
+set(squirtle_mouth_BUILDTOOL_DEPENDS "catkin")

@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "web_video_server")
+set(web_video_server_MAINTAINER "Russell Toris <rctoris@wpi.edu>")
+set(web_video_server_DEPRECATED "")
+set(web_video_server_VERSION "0.0.4")
+set(web_video_server_BUILD_DEPENDS "roscpp" "roslib" "cv_bridge" "image_transport" "async_web_server_cpp" "ffmpeg")
+set(web_video_server_RUN_DEPENDS "roscpp" "roslib" "cv_bridge" "image_transport" "async_web_server_cpp" "ffmpeg")
+set(web_video_server_BUILDTOOL_DEPENDS "catkin")

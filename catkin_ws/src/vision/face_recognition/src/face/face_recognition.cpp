@@ -125,7 +125,7 @@ public:
     // face label
     facelabel_pub = n2.advertise<std_msgs::Int32MultiArray>("facelabel", 1000);
     // location
-    location_pub = n3.advertise<face_recognition::Loc>("location", 1000);
+    location_pub = n3.advertise<face_recognition::Loc>("face_ret", 1000);
 
     //instrinsic parameters
     f = 644.5;

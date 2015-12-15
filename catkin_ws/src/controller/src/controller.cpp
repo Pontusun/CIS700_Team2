@@ -12,7 +12,7 @@
 #include <std_msgs/String.h>
 #include <std_msgs/Float32MultiArray.h>
 
-// #include "face_recognition/Loc.h"
+#include "face_recognition/Loc.h"
 
 // Libraries
 #include <vector>
@@ -43,7 +43,7 @@ public:
         caffeSub = nh.subscribe("caffe_ret", 1, &Controller::caffeCallback, this);
         objectSub = nh.subscribe("objects", 1, &Controller::objectCallback, this);
         androidSub = nh.subscribe("android_ui",1, &Controller::androidCallback, this);
-        //faceSub = nh.subscribe("face_ret")
+        faceSub = nh.subscribe("face_ret",1, &Controller::faceCallback, this);
         
         //clients
         exploration_plan_service_client_ = nh.serviceClient<hector_nav_msgs::GetRobotTrajectory>("get_exploration_path");
@@ -118,6 +118,26 @@ public:
         			return;
     		    }
 		    }	
+        }
+	    ROS_INFO("finished looking...");
+    }
+
+    void lookForFace(int faceTarget){    
+        ROS_INFO("searching for face ...");
+        for (int i=0; i<20; i++){
+            this->move(0.0,0.75);
+            ROS_INFO("turning...");
+    	    for (int j=0; j<5; j++){ // try to detect object 5 times on each turn
+        	ros::spinOnce();
+        	for(int k=0; k<faceLabels.size();k++){
+			if(faceLabels[k] == faceTarget){
+				detect_face = true;
+				detect_face_idx = k;
+				return;
+			}
+		}	
+                ros::Duration(0.3).sleep();
+	 }	
         }
 	    ROS_INFO("finished looking...");
     }
@@ -218,8 +238,14 @@ public:
 	this->userInput = msg->data.c_str();
     }
 
-    void faceCallback(const std_msgs::Float32MultiArray::ConstPtr& msg){
+    void faceCallback(const face_recognition::Loc::ConstPtr& msg){
     	ROS_INFO("FILL IN FACE CALLBACK");
+        for(int i=0; i<msg->labels.size();i++){
+           faceLocX.push_back(msg->x[i]);
+           faceLocY.push_back(msg->y[i]);
+	   faceLocZ.push_back(msg->z[i]);
+           faceLabels.push_back(msg->labels[i]);
+          }
     }
 
 /******************
@@ -293,10 +319,79 @@ public:
         rate.sleep();
     }
 
+    void spin_followFace(int faceTarget){
+
+        // initialize variables
+    	
+    	//std::vector<double> navGoal = this->coordinates[location]; // [x,y,yaw]
+        //std::vector<double> homeBase = this->coordinates["grasp_lab"]; 
+        std::vector<double> navGoal;
+        std::vector<double> homeBase;
+	 bool result;
+        
+        // spin loop 
+        this->fsm = EXPLORE;
+        ros::Rate rate(50);
+        while (ros::ok()) {
+        	switch(fsm){
+
+        		case GOTO : 
+        			result = goal(navGoal);
+        			if (result == true && navGoal == homeBase){
+	                    ROS_INFO("Wiggles has returned to homebase");
+	                    ROS_INFO("exiting");
+	                    return;
+                	}	
+
+                	if (result){
+                		this->fsm = EXPLORE;
+                	}
+        			break;
+
+        		case EXPLORE : 
+        			if( detect_face == true){
+        				this->fsm = FOLLOW;
+        				break;
+                	}
+                	this->navigationExplore();
+	                this->lookForFace(faceTarget);
+        			break;
+
+        		case FOLLOW :
+	                ROS_INFO("following face ...");
+			//this->lookForFace(faceTarget);
+    	    for (int j=0; j<5; j++){ // try to detect object 5 times on each turn
+        	ros::spinOnce();
+        	for(int k=0; k<faceLabels.size();k++){
+			if(faceLabels[k] == faceTarget){
+				detect_face = true;
+				detect_face_idx = k;
+			//	return;
+			}
+		}	
+                //ros::Duration(0.3).sleep();
+	 }	
+
+			if(detect_face == false){
+			  //this->fsm = EXPLORE;
+			 this->move(0.0, 0.0);
+			  break;
+			}
+	                double linear = 0.2;
+			double angular = 1.0 * atan2(-faceLocX[detect_face_idx], faceLocZ[detect_face_idx]);
+                	this->move(linear, angular);
+        			break;  
+        	}
+        	ros::spinOnce();
+        }
+
+       rate.sleep();
+    }
+
 protected:
 	// publishers and subscribers 
 	ros::Publisher commandPub; // Publisher to the simulated robot's velocity command topic
-    ros::Publisher faceSub; // Publisher to face detection
+    ros::Subscriber faceSub; // Subscriber to face detection
 	//ros::Publisher androidPub;
     ros::Subscriber objectSub;
     ros::Subscriber amclSub;
@@ -320,7 +415,12 @@ protected:
     std::string userInput;
     std::vector<std::string> objectTargets;
     std::map<std::string,std::vector<double> > coordinates;
-
+    
+    int detect_face_idx;
+    std::vector<float> faceLocX;
+    std::vector<float> faceLocY;
+    std::vector<float> faceLocZ;
+    std::vector<int> faceLabels; 
 
 };
 
@@ -330,7 +430,8 @@ int main(int argc, char **argv) {
     ros::init(argc, argv, "controller"); // Initiate new ROS node named "controller"
     ros::NodeHandle nh;
     Controller controller(nh); // Create default controller object
-    controller.spin_findObject(); // Execute FSM loop
+    //controller.spin_findObject(); // Execute FSM loop
+    controller.spin_followFace(2);
     return 0;
 }
 

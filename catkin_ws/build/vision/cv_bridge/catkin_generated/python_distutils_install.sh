@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/sh
 
 if [ -n "$DESTDIR" ] ; then
     case $DESTDIR in
@@ -12,12 +12,14 @@ if [ -n "$DESTDIR" ] ; then
     DESTDIR_ARG="--root=$DESTDIR"
 fi
 
-cd "/home/genesis/code/ROS/catkin_ws/src/vision/cv_bridge"
+echo_and_run() { echo "+ $@" ; "$@" ; }
+
+echo_and_run cd "/home/genesis/code/ROS/catkin_ws/src/vision/cv_bridge"
 
 # Note that PYTHONPATH is pulled from the environment to support installing
 # into one location when some dependencies were installed in another
 # location, #123.
-/usr/bin/env \
+echo_and_run /usr/bin/env \
     PYTHONPATH="/home/genesis/code/ROS/catkin_ws/install/lib/python2.7/dist-packages:/home/genesis/code/ROS/catkin_ws/build/lib/python2.7/dist-packages:$PYTHONPATH" \
     CATKIN_BINARY_DIR="/home/genesis/code/ROS/catkin_ws/build" \
     "/usr/bin/python" \

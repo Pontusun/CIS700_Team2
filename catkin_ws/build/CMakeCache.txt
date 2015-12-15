@@ -320,13 +320,16 @@ _CATKIN_GTEST_INCLUDE:FILEPATH=/usr/include/gtest/gtest.h
 _CATKIN_GTEST_SRC:FILEPATH=/usr/src/gtest/src/gtest.cc
 
 //Path to a file.
-_path_name:FILEPATH=/home/genesis/code/ROS/catkin_ws/src/vision/cv_bridge/test/enumerants.py
+_path_name:FILEPATH=/home/genesis/code/ROS/catkin_ws/src/sound_play/scripts/test
 
 //The directory containing a CMake configuration file for actionlib.
 actionlib_DIR:PATH=/opt/ros/indigo/share/actionlib/cmake
 
 //The directory containing a CMake configuration file for actionlib_msgs.
 actionlib_msgs_DIR:PATH=/opt/ros/indigo/share/actionlib_msgs/cmake
+
+//The directory containing a CMake configuration file for async_web_server_cpp.
+async_web_server_cpp_DIR:PATH=/opt/ros/indigo/share/async_web_server_cpp/cmake
 
 //The directory containing a CMake configuration file for bond.
 bond_DIR:PATH=/opt/ros/indigo/share/bond/cmake
@@ -477,7 +480,7 @@ image_transport_DIR:PATH=/opt/ros/indigo/share/image_transport/cmake
 laser_geometry_DIR:PATH=/opt/ros/indigo/share/laser_geometry/cmake
 
 //Path to a library.
-lib:FILEPATH=/opt/ros/indigo/lib/libvoxel_grid.so
+lib:FILEPATH=/opt/ros/indigo/lib/libasync_web_server_cpp.so
 
 //The directory containing a CMake configuration file for map_msgs.
 map_msgs_DIR:PATH=/opt/ros/indigo/share/map_msgs/cmake
@@ -581,6 +584,27 @@ simple_talker_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/simple_talk
 //The directory containing a CMake configuration file for smclib.
 smclib_DIR:PATH=/opt/ros/indigo/share/smclib/cmake
 
+//Value Computed by CMake
+sound_play_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/sound_play
+
+//The directory containing a CMake configuration file for sound_play.
+sound_play_DIR:PATH=/home/genesis/code/ROS/catkin_ws/devel/share/sound_play/cmake
+
+//Value Computed by CMake
+sound_play_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/sound_play
+
+//Value Computed by CMake
+speaker_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/speaker
+
+//Value Computed by CMake
+speaker_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/speaker
+
+//Value Computed by CMake
+squirtle_mouth_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/squirtle_mouth
+
+//Value Computed by CMake
+squirtle_mouth_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/squirtle_mouth
+
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/indigo/share/std_msgs/cmake
 
@@ -610,6 +634,12 @@ uvc_camera_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/uvc_cam
 
 //The directory containing a CMake configuration file for voxel_grid.
 voxel_grid_DIR:PATH=/opt/ros/indigo/share/voxel_grid/cmake
+
+//Value Computed by CMake
+web_video_server_BINARY_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/build/vision/web_video_server
+
+//Value Computed by CMake
+web_video_server_SOURCE_DIR:STATIC=/home/genesis/code/ROS/catkin_ws/src/vision/web_video_server
 
 //The directory containing a CMake configuration file for xmlrpcpp.
 xmlrpcpp_DIR:PATH=/opt/ros/indigo/share/xmlrpcpp/cmake
@@ -736,7 +766,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=18
+CMAKE_NUMBER_OF_LOCAL_GENERATORS:INTERNAL=22
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -873,4 +903,144 @@ _Boost_LIBRARY_DIR_LAST:INTERNAL=/usr/lib/x86_64-linux-gnu
 //Last used Boost_USE_MULTITHREADED value.
 _Boost_USE_MULTITHREADED_LAST:INTERNAL=TRUE
 __pkg_config_checked_PC_EIGEN:INTERNAL=1
+__pkg_config_checked_avcodec:INTERNAL=1
+__pkg_config_checked_avformat:INTERNAL=1
+__pkg_config_checked_avutil:INTERNAL=1
+__pkg_config_checked_swscale:INTERNAL=1
+avcodec_CFLAGS:INTERNAL=
+avcodec_CFLAGS_I:INTERNAL=
+avcodec_CFLAGS_OTHER:INTERNAL=
+avcodec_FOUND:INTERNAL=1
+avcodec_INCLUDEDIR:INTERNAL=/usr/include
+avcodec_INCLUDE_DIRS:INTERNAL=
+avcodec_LDFLAGS:INTERNAL=-lavcodec
+avcodec_LDFLAGS_OTHER:INTERNAL=
+avcodec_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+avcodec_LIBRARIES:INTERNAL=avcodec
+avcodec_LIBRARY_DIRS:INTERNAL=
+avcodec_LIBS:INTERNAL=
+avcodec_LIBS_L:INTERNAL=
+avcodec_LIBS_OTHER:INTERNAL=
+avcodec_LIBS_PATHS:INTERNAL=
+avcodec_PREFIX:INTERNAL=/usr
+avcodec_STATIC_CFLAGS:INTERNAL=
+avcodec_STATIC_CFLAGS_I:INTERNAL=
+avcodec_STATIC_CFLAGS_OTHER:INTERNAL=
+avcodec_STATIC_INCLUDE_DIRS:INTERNAL=
+avcodec_STATIC_LDFLAGS:INTERNAL=-pthread;-lavcodec;-ldl;-lXfixes;-lXext;-lX11;-lcdio_paranoia;-lcdio_cdda;-lcdio;-ljack;-lasound;-ldc1394;-lraw1394;-lgcrypt;-lxvidcore;-lx264;-lvpx;-lvorbisenc;-lvorbis;-ltheoraenc;-ltheoradec;-logg;-lspeex;-lschroedinger-1.0;-lrtmp;-lpulse-simple;-lpulse;-lopus;-lopenjpeg;-lmp3lame;-lgsm;-lfreetype;-lgnutls;-lva;-lbz2;-lz;-lavutil;-lm
+avcodec_STATIC_LDFLAGS_OTHER:INTERNAL=-pthread
+avcodec_STATIC_LIBDIR:INTERNAL=
+avcodec_STATIC_LIBRARIES:INTERNAL=avcodec;dl;Xfixes;Xext;X11;cdio_paranoia;cdio_cdda;cdio;jack;asound;dc1394;raw1394;gcrypt;xvidcore;x264;vpx;vorbisenc;vorbis;theoraenc;theoradec;ogg;speex;schroedinger-1.0;rtmp;pulse-simple;pulse;opus;openjpeg;mp3lame;gsm;freetype;gnutls;va;bz2;z;avutil;m
+avcodec_STATIC_LIBRARY_DIRS:INTERNAL=
+avcodec_STATIC_LIBS:INTERNAL=
+avcodec_STATIC_LIBS_L:INTERNAL=
+avcodec_STATIC_LIBS_OTHER:INTERNAL=
+avcodec_STATIC_LIBS_PATHS:INTERNAL=
+avcodec_VERSION:INTERNAL=54.35.0
+avcodec_libavcodec_INCLUDEDIR:INTERNAL=
+avcodec_libavcodec_LIBDIR:INTERNAL=
+avcodec_libavcodec_PREFIX:INTERNAL=
+avcodec_libavcodec_VERSION:INTERNAL=
+avformat_CFLAGS:INTERNAL=
+avformat_CFLAGS_I:INTERNAL=
+avformat_CFLAGS_OTHER:INTERNAL=
+avformat_FOUND:INTERNAL=1
+avformat_INCLUDEDIR:INTERNAL=/usr/include
+avformat_INCLUDE_DIRS:INTERNAL=
+avformat_LDFLAGS:INTERNAL=-lavformat
+avformat_LDFLAGS_OTHER:INTERNAL=
+avformat_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+avformat_LIBRARIES:INTERNAL=avformat
+avformat_LIBRARY_DIRS:INTERNAL=
+avformat_LIBS:INTERNAL=
+avformat_LIBS_L:INTERNAL=
+avformat_LIBS_OTHER:INTERNAL=
+avformat_LIBS_PATHS:INTERNAL=
+avformat_PREFIX:INTERNAL=/usr
+avformat_STATIC_CFLAGS:INTERNAL=
+avformat_STATIC_CFLAGS_I:INTERNAL=
+avformat_STATIC_CFLAGS_OTHER:INTERNAL=
+avformat_STATIC_INCLUDE_DIRS:INTERNAL=
+avformat_STATIC_LDFLAGS:INTERNAL=-pthread;-lavformat;-lavcodec;-ldl;-lXfixes;-lXext;-lX11;-lcdio_paranoia;-lcdio_cdda;-lcdio;-ljack;-lasound;-ldc1394;-lraw1394;-lgcrypt;-lxvidcore;-lx264;-lvpx;-lvorbisenc;-lvorbis;-ltheoraenc;-ltheoradec;-logg;-lspeex;-lschroedinger-1.0;-lrtmp;-lpulse-simple;-lpulse;-lopus;-lopenjpeg;-lmp3lame;-lgsm;-lfreetype;-lgnutls;-lva;-lbz2;-lz;-lavutil;-lm
+avformat_STATIC_LDFLAGS_OTHER:INTERNAL=-pthread
+avformat_STATIC_LIBDIR:INTERNAL=
+avformat_STATIC_LIBRARIES:INTERNAL=avformat;avcodec;dl;Xfixes;Xext;X11;cdio_paranoia;cdio_cdda;cdio;jack;asound;dc1394;raw1394;gcrypt;xvidcore;x264;vpx;vorbisenc;vorbis;theoraenc;theoradec;ogg;speex;schroedinger-1.0;rtmp;pulse-simple;pulse;opus;openjpeg;mp3lame;gsm;freetype;gnutls;va;bz2;z;avutil;m
+avformat_STATIC_LIBRARY_DIRS:INTERNAL=
+avformat_STATIC_LIBS:INTERNAL=
+avformat_STATIC_LIBS_L:INTERNAL=
+avformat_STATIC_LIBS_OTHER:INTERNAL=
+avformat_STATIC_LIBS_PATHS:INTERNAL=
+avformat_VERSION:INTERNAL=54.20.4
+avformat_libavformat_INCLUDEDIR:INTERNAL=
+avformat_libavformat_LIBDIR:INTERNAL=
+avformat_libavformat_PREFIX:INTERNAL=
+avformat_libavformat_VERSION:INTERNAL=
+avutil_CFLAGS:INTERNAL=
+avutil_CFLAGS_I:INTERNAL=
+avutil_CFLAGS_OTHER:INTERNAL=
+avutil_FOUND:INTERNAL=1
+avutil_INCLUDEDIR:INTERNAL=/usr/include
+avutil_INCLUDE_DIRS:INTERNAL=
+avutil_LDFLAGS:INTERNAL=-lavutil
+avutil_LDFLAGS_OTHER:INTERNAL=
+avutil_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+avutil_LIBRARIES:INTERNAL=avutil
+avutil_LIBRARY_DIRS:INTERNAL=
+avutil_LIBS:INTERNAL=
+avutil_LIBS_L:INTERNAL=
+avutil_LIBS_OTHER:INTERNAL=
+avutil_LIBS_PATHS:INTERNAL=
+avutil_PREFIX:INTERNAL=/usr
+avutil_STATIC_CFLAGS:INTERNAL=
+avutil_STATIC_CFLAGS_I:INTERNAL=
+avutil_STATIC_CFLAGS_OTHER:INTERNAL=
+avutil_STATIC_INCLUDE_DIRS:INTERNAL=
+avutil_STATIC_LDFLAGS:INTERNAL=-lavutil;-lm
+avutil_STATIC_LDFLAGS_OTHER:INTERNAL=
+avutil_STATIC_LIBDIR:INTERNAL=
+avutil_STATIC_LIBRARIES:INTERNAL=avutil;m
+avutil_STATIC_LIBRARY_DIRS:INTERNAL=
+avutil_STATIC_LIBS:INTERNAL=
+avutil_STATIC_LIBS_L:INTERNAL=
+avutil_STATIC_LIBS_OTHER:INTERNAL=
+avutil_STATIC_LIBS_PATHS:INTERNAL=
+avutil_VERSION:INTERNAL=52.3.0
+avutil_libavutil_INCLUDEDIR:INTERNAL=
+avutil_libavutil_LIBDIR:INTERNAL=
+avutil_libavutil_PREFIX:INTERNAL=
+avutil_libavutil_VERSION:INTERNAL=
+swscale_CFLAGS:INTERNAL=
+swscale_CFLAGS_I:INTERNAL=
+swscale_CFLAGS_OTHER:INTERNAL=
+swscale_FOUND:INTERNAL=1
+swscale_INCLUDEDIR:INTERNAL=/usr/include
+swscale_INCLUDE_DIRS:INTERNAL=
+swscale_LDFLAGS:INTERNAL=-lswscale
+swscale_LDFLAGS_OTHER:INTERNAL=
+swscale_LIBDIR:INTERNAL=/usr/lib/x86_64-linux-gnu
+swscale_LIBRARIES:INTERNAL=swscale
+swscale_LIBRARY_DIRS:INTERNAL=
+swscale_LIBS:INTERNAL=
+swscale_LIBS_L:INTERNAL=
+swscale_LIBS_OTHER:INTERNAL=
+swscale_LIBS_PATHS:INTERNAL=
+swscale_PREFIX:INTERNAL=/usr
+swscale_STATIC_CFLAGS:INTERNAL=
+swscale_STATIC_CFLAGS_I:INTERNAL=
+swscale_STATIC_CFLAGS_OTHER:INTERNAL=
+swscale_STATIC_INCLUDE_DIRS:INTERNAL=
+swscale_STATIC_LDFLAGS:INTERNAL=-lswscale;-lavutil;-lm
+swscale_STATIC_LDFLAGS_OTHER:INTERNAL=
+swscale_STATIC_LIBDIR:INTERNAL=
+swscale_STATIC_LIBRARIES:INTERNAL=swscale;avutil;m
+swscale_STATIC_LIBRARY_DIRS:INTERNAL=
+swscale_STATIC_LIBS:INTERNAL=
+swscale_STATIC_LIBS_L:INTERNAL=
+swscale_STATIC_LIBS_OTHER:INTERNAL=
+swscale_STATIC_LIBS_PATHS:INTERNAL=
+swscale_VERSION:INTERNAL=2.1.1
+swscale_libswscale_INCLUDEDIR:INTERNAL=
+swscale_libswscale_LIBDIR:INTERNAL=
+swscale_libswscale_PREFIX:INTERNAL=
+swscale_libswscale_VERSION:INTERNAL=
 

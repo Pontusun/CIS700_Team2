@@ -1,0 +1,7 @@
+set(_CATKIN_CURRENT_PACKAGE "speaker")
+set(speaker_MAINTAINER "genesis <genesis@todo.todo>")
+set(speaker_DEPRECATED "")
+set(speaker_VERSION "0.0.0")
+set(speaker_BUILD_DEPENDS "roscpp" "rospy" "sound_play")
+set(speaker_RUN_DEPENDS "roscpp" "rospy" "sound_play")
+set(speaker_BUILDTOOL_DEPENDS "catkin")

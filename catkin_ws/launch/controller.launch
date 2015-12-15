@@ -28,5 +28,7 @@
   
   <!-- Run Webcam -->
   <include file="../src/vision/uvc_camera/launch/camera_node.launch"/>
- 
+  
+  <!-- Run Websocket -->
+  <include file="/opt/ros/indigo/share/rosbridge_server/launch/rosbridge_websocket.launch"/> 
 </launch>

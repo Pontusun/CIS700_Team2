@@ -1,0 +1,16 @@
+Squirtle_mouth is a package that depends on sound_play
+
+It's basically listen to topic "string_to_say" and say whatever there is
+
+So that multiple nodes can use this same pronouncing device i.e. the "Mouth"
+
+
+Usage of Squirtle Mouth is pretty simple:
+    1. Bring up Mouth!
+       $ roslaunch squirtle_mouth squirtle_mouth_bringup.launch
+    2. Try Mouth!
+       Just publish a string to topic /mouth/string_to_say
+       $ rostopic pub -1 /mouth/string_to_say std_msgs/String "greetings human, my name is squirtle"
+       (of course you may want to publish it in your code rather than command line!)
+
+Enjoy it!

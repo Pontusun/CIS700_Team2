@@ -1,0 +1,8 @@
+<launch>
+
+    <group ns="mouth">
+          <node name="soundplay_node" pkg="sound_play" type="soundplay_node.py"/>
+          <node name="mouth_talker" pkg="squirtle_mouth" type="mouth_talker.py" output="screen"/>
+    </group>
+
+</launch>

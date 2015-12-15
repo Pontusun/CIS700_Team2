@@ -31,6 +31,7 @@ controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/inclu
 controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/geometry_msgs/Pose.h
 controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/geometry_msgs/PoseStamped.h
 controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/geometry_msgs/PoseWithCovariance.h
+controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/geometry_msgs/PoseWithCovarianceStamped.h
 controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/geometry_msgs/Quaternion.h
 controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/geometry_msgs/QuaternionStamped.h
 controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/geometry_msgs/Transform.h
@@ -111,7 +112,10 @@ controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/inclu
 controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/sensor_msgs/ChannelFloat32.h
 controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/sensor_msgs/PointCloud.h
 controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/std_msgs/Empty.h
+controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/std_msgs/Float32MultiArray.h
 controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/std_msgs/Header.h
+controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/std_msgs/MultiArrayDimension.h
+controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/std_msgs/MultiArrayLayout.h
 controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/std_msgs/String.h
 controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/tf/FrameGraph.h
 controller/CMakeFiles/controller.dir/src/controller.cpp.o: /opt/ros/indigo/include/tf/FrameGraphRequest.h
