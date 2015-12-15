@@ -33,12 +33,12 @@ public:
 
         //publishers
         commandPub = nh.advertise < geometry_msgs::Twist > ("cmd_vel_mux/input/navi", 1);
-        androidPub = nh.advertise < std_msgs::String>("android_fb", 1000);
+        //androidPub = nh.advertise < std_msgs::String>("android_fb", 1000);
 
         //subscribers
         //faceSub = nh.subscribe("face_ret")
         amclSub = nh.subscribe("amcl_pose",1, &Controller::amclCallback,this);
-        androidSub = nh.subscribe("android_ui", &Controller::androidCallback, this);
+        //androidSub = nh.subscribe("android_ui", &Controller::androidCallback, this);
 
         //clients
         exploration_plan_service_client_ = nh.serviceClient<hector_nav_msgs::GetRobotTrajectory>("get_exploration_path");
@@ -49,7 +49,7 @@ public:
   		}
 
   		// controller members
-  		FSM fsm = GOTO;
+  		fsm = GOTO;
 	 
     }
     
@@ -214,7 +214,7 @@ public:
 
         		case GOTO : 
         			bool result = goal(navGoal);
-        			if (result == true && this->navGoal == homeBase){
+        			if (result == true && navGoal == homeBase){
 	                    ROS_INFO("Wiggles has returned to homebase");
 	                    ROS_INFO("exiting");
 	                    return;
@@ -251,9 +251,11 @@ public:
 protected:
 	// publishers and subscribers 
 	ros::Publisher commandPub; // Publisher to the simulated robot's velocity command topic
-    ros::Publisher faceSub; // Publisher to face detection
+    	//ros::Publisher androidPub;
+	ros::Publisher faceSub; // Publisher to face detection
 	ros::Subscriber objectSub;
-    ros::Subscriber amclSub; 
+    	ros::Subscriber amclSub;
+	//ros::Subscriber androidSub; 
 	
 	// hector navigation data members
 	ros::ServiceClient exploration_plan_service_client_;
@@ -266,6 +268,7 @@ protected:
 
 	// controller members
 	enum FSM {GOTO, EXPLORE, WAIT, FOLLOW};
+	FSM fsm;
 };
 
 
@@ -274,7 +277,7 @@ int main(int argc, char **argv) {
     ros::init(argc, argv, "controller"); // Initiate new ROS node named "controller"
     ros::NodeHandle nh;
     Controller controller(nh); // Create default controller object
-    controller.spin(); // Execute FSM loop
+    controller.spin_findObject(); // Execute FSM loop
     return 0;
 }
 
