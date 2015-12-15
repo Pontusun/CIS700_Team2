@@ -18,10 +18,17 @@
 #include <vector>
 #include <math.h>
 #include <deque>
-
+#include <map>
+#include <iostream>
+#include <string>
+#include <sstream>
 
 // Type Definitions
 typedef actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> MoveBaseClient;
+
+// Function Declarations
+map<std::string, std::vector<double> > coordinates();
+
 
 // Controller Class
 class Controller{
@@ -54,7 +61,7 @@ public:
   		fsm = GOTO; 
         detect_obj = false;
         detect_face = false;
-	 
+        userInput = " "; 
     }
     
     // destructor
@@ -145,6 +152,38 @@ public:
         return yaw;
     }
 
+    void getCoordinates(){
+
+        // charitys office
+        std::vector<double>(3) charity;
+        charity.push_back(2.40424320025);
+        charity.push_back(1.33934123128);
+        charity.push_back(3.3); 
+
+        // jeans office
+        std::vector<double>(3) jean;
+        jean.push_back(2.40424320025);
+        jean.push_back(1.33934123128);
+        jean.push_back(3.3); 
+
+        // grasp
+        std::vector<double>(3) grasp;
+        grasp.push_back(2.40424320025);
+        grasp.push_back(1.33934123128);
+        grasp.push_back(3.3); 
+
+        // vending machine
+        std::vector<double>(3) vending;        
+        vending.push_back(2.0);
+        vending.push_back(-11.0);
+        vending.push_back(-1.4);
+
+        this->coordinates['grasp_lab'] = grasp;
+        this->coordinates['charitys_office'] = charity;
+        this->coordinates['jeans_office'] = jean;
+        this->coordinates['vending_machine'] = vending;
+    }
+
 
 /*
 * Callbacks
@@ -179,8 +218,8 @@ public:
         ROS_INFO("FILL IN OBJECT CALLBACK");
     }
 
-    void androidCallback(const std_msgs::Float32MultiArray::ConstPtr& msg){
-        ROS_INFO("FILL IN ANDROID CALLBACK");
+    void androidCallback(const std_msgs::String::ConstPtr& msg){
+        this->userInput = msg->data.c_str();
     }
 
     void faceCallback(const std_msgs::Float32MultiArray::ConstPtr& msg){
@@ -193,22 +232,26 @@ public:
 
     void spin_findObject(){
         
-        // setup task specific variables 
-    	std::vector<double> navGoal; // [x,y,yaw]
-        std::vector<double> homeBase;
-        bool result;
-  
-        // initialize variables 
+        // wait for user input  
+        while(userInput.compare(" ") == 0){
+            os::Duration(0.25).sleep();
+            ros::spinOnce();
+        }
+
+        // parse input 
+        std::istringstream iss(str1);
+        std::string location;
+        std::string object;
+        iss >> location;
+        iss >> object;
+
+        // initialize variables
+    	std::vector<double> navGoal = this->coordinates[location]; // [x,y,yaw]
+        std::vector<double> homeBase = this->coordinates["grasp_lab"]; 
         this->objectTargets.push_back("keyboard");
         this->objectTargets.push_back("ball");
-        this->objectTargets.push_back("chair");
-        homeBase.push_back(2.40424320025);
-        homeBase.push_back(1.33934123128);
-        homeBase.push_back(3.3); 
-        navGoal.push_back(2.0);
-        navGoal.push_back(-11.0);
-        navGoal.push_back(-1.4);
-
+        this->objectTargets.push_back(object);
+        bool result;
         
         // spin loop 
         this->fsm = GOTO;
@@ -260,7 +303,7 @@ protected:
     ros::Subscriber objectSub;
     ros::Subscriber amclSub;
 	ros::Subscriber caffeSub;
-	//ros::Subscriber androidSub; 
+	ros::Subscriber androidSub; 
 	
 	// hector navigation data members
 	ros::ServiceClient exploration_plan_service_client_;
@@ -276,7 +319,11 @@ protected:
 	FSM fsm;
     bool detect_obj;
     bool detect_face;
+    string userInput;
     std::vector<std::string> objectTargets;
+    std::map<std::string,std::vector<double> > coordinates;
+
+
 };
 
 
@@ -288,4 +335,5 @@ int main(int argc, char **argv) {
     controller.spin_findObject(); // Execute FSM loop
     return 0;
 }
+
 
