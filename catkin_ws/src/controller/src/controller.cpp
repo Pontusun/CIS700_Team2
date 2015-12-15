@@ -42,7 +42,7 @@ public:
         amclSub = nh.subscribe("amcl_pose",1, &Controller::amclCallback,this);
         caffeSub = nh.subscribe("caffe_ret", 1, &Controller::caffeCallback, this);
         objectSub = nh.subscribe("objects", 1, &Controller::objectCallback, this);
-        //androidSub = nh.subscribe("android_ui", &Controller::androidCallback, this);
+        androidSub = nh.subscribe("android_ui",1, &Controller::androidCallback, this);
         //faceSub = nh.subscribe("face_ret")
         
         //clients
@@ -215,7 +215,7 @@ public:
     }
 
     void androidCallback(const std_msgs::String::ConstPtr& msg){
-        this->userInput = msg->data.c_str();
+	this->userInput = msg->data.c_str();
     }
 
     void faceCallback(const std_msgs::Float32MultiArray::ConstPtr& msg){
@@ -228,9 +228,10 @@ public:
 
     void spin_findObject(){
         
-        // wait for user input  
+        // wait for user input 
+	this->getCoordinates(); 
         while(this->userInput.compare(" ") == 0){
-            ros::Duration(0.25).sleep();
+	    ros::Duration(0.25).sleep();
             ros::spinOnce();
         }
 
@@ -245,10 +246,6 @@ public:
     	
     	std::vector<double> navGoal = this->coordinates[location]; // [x,y,yaw]
         std::vector<double> homeBase = this->coordinates["grasp_lab"]; 
-        ROS_INFO_STREAM("user location " << location);
-        ROS_INFO("location_pose |  x: %lf, y: %lf, yaw: %lf", navGoal[0],navGoal[1],navGoal[2]);
-        ROS_INFO_STREAM("user object " << object);
-        
         this->objectTargets.push_back("keyboard");
         this->objectTargets.push_back("ball");
         this->objectTargets.push_back(object);
