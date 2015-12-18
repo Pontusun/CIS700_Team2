@@ -1,0 +1,16 @@
+Navigation:
+--hector navigation
+
+Voice synthesis:
+-- sound play(ROS package)
+-- squitle_mouth (The code is base on group 4 and with some modification by us. https://github.com/srsidd/CIS700_Squirtle/tree/master/wenxuan_ws/wenxuanbot_voice/squirtle_mouth)
+
+Vision:
+-- vision
+-- ros_caffe(rospackage, install it by youself)
+
+Controller:
+-- controller
+
+Trash:
+--simple talker

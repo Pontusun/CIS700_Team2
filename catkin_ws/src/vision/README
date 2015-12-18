@@ -1,0 +1,22 @@
+This is the vision part of the repository, it mainly contains three part:
+Face detection
+Face recognition
+Object recognition
+
+--------------------------------------------------------------------------------
+1. Use uvc_camera to steam image stream on ros topic
+   cmd:
+     roslauch uvc_camera camera_node.launch
+     It will also create a stream via http. You can use browser to get access to it. it would be IP_address:/8080
+     You can run rqt_image_view to visualize it.
+
+2. To run face_detection
+     cmd: 
+     roslaunch face_detection face_detection.launch
+
+3. To run face_recognition
+     cmd:
+     roslaunch face_recognition face_recognition.launch
+
+
+
