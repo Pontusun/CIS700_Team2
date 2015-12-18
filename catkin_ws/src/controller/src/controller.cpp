@@ -31,41 +31,42 @@ class Controller{
     
 public:
 
-    // constructor
-    Controller(ros::NodeHandle& nh){
+  // constructor
+  Controller(ros::NodeHandle& nh){
 
-        //publishers
-        commandPub = nh.advertise < geometry_msgs::Twist > ("cmd_vel_mux/input/navi", 1);
-        //androidPub = nh.advertise < std_msgs::String>("android_fb", 1000);
-        stringPub = nh.advertise < std_msgs::String > ("mouth/words" , 1);
-      
-          //subscribers
-         amclSub = nh.subscribe("amcl_pose",1, &Controller::amclCallback,this);
-        caffeSub = nh.subscribe("caffe_ret", 1, &Controller::caffeCallback, this);
-        objectSub = nh.subscribe("objects", 1, &Controller::objectCallback, this);
-        androidSub = nh.subscribe("android_ui",1, &Controller::androidCallback, this);
-        faceSub = nh.subscribe("face_ret",1, &Controller::faceCallback, this);
-        
-        //clients
-        exploration_plan_service_client_ = nh.serviceClient<hector_nav_msgs::GetRobotTrajectory>("get_exploration_path");
-    	path_follower_.initialize(&tfl_);
-        mb_ac = new MoveBaseClient("move_base", true); 
-		while(!mb_ac->waitForServer(ros::Duration(5.0))) { 
-  			ROS_INFO("Waiting for the move_base action server to come up");
-  		}
-
-  		// controller members
-  		fsm = GOTO; 
-        detect_obj = false;
-        detect_face = false;
-        userInput = " "; 
-    }
+    //publishers
+    commandPub = nh.advertise < geometry_msgs::Twist > ("cmd_vel_mux/input/navi", 1);
+    androidPub = nh.advertise < std_msgs::String>("android_fb", 1000);
+    stringPub = nh.advertise < std_msgs::String > ("mouth/words" , 1);
+  
+    //subscribers
+    amclSub = nh.subscribe("amcl_pose",1, &Controller::amclCallback,this);
+    caffeSub = nh.subscribe("caffe_ret", 1, &Controller::caffeCallback, this);
+    objectSub = nh.subscribe("objects", 1, &Controller::objectCallback, this);
+    androidSub = nh.subscribe("android_ui",1, &Controller::androidCallback, this);
+    faceSub = nh.subscribe("face_ret",1, &Controller::faceCallback, this);
     
-    // destructor
-    ~Controller(){
-        // delete clients
-        delete mb_ac;
+    //clients
+    exploration_plan_service_client_ = nh.serviceClient<hector_nav_msgs::GetRobotTrajectory>("get_exploration_path");
+    path_follower_.initialize(&tfl_);
+    mb_ac = new MoveBaseClient("move_base", true); 
+    while(!mb_ac->waitForServer(ros::Duration(5.0))) { 
+      ROS_INFO("Waiting for the move_base action server to come up");
     }
+
+    // controller members
+    fsm = IDLE; 
+    detect_obj = false;
+    detect_face = false;
+    faceTarget = 4;
+    userInput = " "; 
+  }
+  
+  // destructor
+  ~Controller(){
+    // delete clients
+    delete mb_ac;
+  }
     
 
 
@@ -74,365 +75,457 @@ public:
 * Navigation API
 *******************************/
 
-    // Hector explore 
-    void navigationExplore(){
-    	//ROS_INFO("go to explore waypoint"); 
+  // Hector explore 
+  void navigationExplore(){
+    //ROS_INFO("go to explore waypoint"); 
 
-    	// get exploration plan
-        hector_nav_msgs::GetRobotTrajectory srv_exploration_plan;
-        if (this->exploration_plan_service_client_.call(srv_exploration_plan)){
-          ROS_INFO("Generated exploration path with %u poses", (unsigned int)srv_exploration_plan.response.trajectory.poses.size());
-          this->path_follower_.setPlan(srv_exploration_plan.response.trajectory.poses);
-        }
-        else{
-          ROS_WARN("Service call for exploration service failed");
-        }
-    	
-    	// execute plan through move base goal 
-        move_base_msgs::MoveBaseGoal goal; 
-        goal.target_pose.header.frame_id = "/map"; 
-        goal.target_pose.header.stamp = ros::Time::now(); 
-        goal.target_pose.pose = srv_exploration_plan.response.trajectory.poses[srv_exploration_plan.response.trajectory.poses.size()-1].pose; 
-        ROS_INFO("sending goal"); 
-        this->mb_ac->sendGoal(goal); 
-        ROS_INFO("waiting for goal to finish...");
-        this->mb_ac->waitForResult(ros::Duration(10.0)); 
-        this->mb_ac->cancelGoal(); 
+    // get exploration plan
+    hector_nav_msgs::GetRobotTrajectory srv_exploration_plan;
+    if (this->exploration_plan_service_client_.call(srv_exploration_plan)){
+      ROS_INFO("Generated exploration path with %u poses", (unsigned int)srv_exploration_plan.response.trajectory.poses.size());
+      this->path_follower_.setPlan(srv_exploration_plan.response.trajectory.poses);
+    }
+    else{
+      ROS_WARN("Service call for exploration service failed");
     }
     
-    void move(double linear, double angular){
-        geometry_msgs::Twist msg; // The default constructor will set all commands to 0
-        msg.linear.x = linear;
-        msg.angular.z = angular;
-        commandPub.publish(msg);
-    }
+    // execute plan through move base goal 
+    move_base_msgs::MoveBaseGoal goal; 
+    goal.target_pose.header.frame_id = "/map"; 
+    goal.target_pose.header.stamp = ros::Time::now(); 
+    goal.target_pose.pose = srv_exploration_plan.response.trajectory.poses[srv_exploration_plan.response.trajectory.poses.size()-1].pose; 
+    ROS_INFO("sending goal"); 
+    this->mb_ac->sendGoal(goal); 
+    ROS_INFO("waiting for goal to finish...");
+    this->mb_ac->waitForResult(ros::Duration(10.0)); 
+    this->mb_ac->cancelGoal(); 
+  }
+  
+  void move(double linear, double angular){
+    geometry_msgs::Twist msg; // The default constructor will set all commands to 0
+    msg.linear.x = linear;
+    msg.angular.z = angular;
+    commandPub.publish(msg);
+  }
 
-    void lookForOjbect(){    
-        ROS_INFO("searching for object ...");
-        for (int i=0; i<20; i++){
-            this->move(0.0,0.75);
-            ROS_INFO("turning...");
-    	    for (int j=0; j<5; j++){ // try to detect object 5 times on each turn
-        		ros::spinOnce();
-        		ros::Duration(0.3).sleep();
-        		if (detect_obj == true){
-        			return;
-    		    }
-		    }	
+  void lookForOjbect(){    
+    ROS_INFO("searching for object ...");
+    for (int i=0; i<20; i++){
+      this->move(0.0,0.75);
+      ROS_INFO("turning...");
+      for (int j=0; j<5; j++){ // try to detect object 5 times on each turn
+        ros::spinOnce();
+        ros::Duration(0.3).sleep();
+        if (detect_obj == true){
+          return;
         }
-	    ROS_INFO("finished looking...");
+      } 
     }
+    ROS_INFO("finished looking...");
+  }
 
-    void lookForFace(int faceTarget){    
-        ROS_INFO("searching for face ...");
-        for (int i=0; i<20; i++){
-            this->move(0.0,0.75);
-            ROS_INFO("turning...");
-    	    for (int j=0; j<5; j++){ // try to detect object 5 times on each turn
-        	ros::spinOnce();
-        	for(int k=0; k<faceLabels.size();k++){
-			if(faceLabels[k] == faceTarget){
-				detect_face = true;
-				detect_face_idx = k;
-				return;
-			}
-		}	
-                ros::Duration(0.3).sleep();
-	 }	
-        }
-	    ROS_INFO("finished looking...");
+  void lookForFace(int faceTarget){    
+    ROS_INFO("searching for face ...");
+    for (int i=0; i<20; i++){
+      this->move(0.0,0.75);
+      ROS_INFO("turning...");
+      for (int j=0; j<5; j++){ // try to detect object 5 times on each turn
+        ros::spinOnce();
+        for(int k=0; k<faceLabels.size();k++){
+          if(faceLabels[k] == faceTarget){
+            detect_face = true;
+            detect_face_idx = k;
+            return;
+          }
+        } 
+        ros::Duration(0.3).sleep();
+      }  
     }
+    ROS_INFO("finished looking...");
+  }
 
-    bool goal(std::vector<double> v){
-        double x = v[0];
-        double y = v[1];
-        double yaw = v[2];
+  bool goal(std::vector<double> v){
+    double x = v[0];
+    double y = v[1];
+    double yaw = v[2];
 
-    	move_base_msgs::MoveBaseGoal goal;
-    	goal.target_pose.header.frame_id = "/map"; 
-    	goal.target_pose.header.stamp = ros::Time::now();
-    	goal.target_pose.pose.position.x = x;
-    	goal.target_pose.pose.position.y = y;
-    	goal.target_pose.pose.orientation = tf::createQuaternionMsgFromYaw(yaw);
-  		this->mb_ac->sendGoal(goal);
-  		//ROS_INFO("Sending a new goal to move_base x %lf y %lf yaw %lf", x, y, yaw);
+    move_base_msgs::MoveBaseGoal goal;
+    goal.target_pose.header.frame_id = "/map"; 
+    goal.target_pose.header.stamp = ros::Time::now();
+    goal.target_pose.pose.position.x = x;
+    goal.target_pose.pose.position.y = y;
+    goal.target_pose.pose.orientation = tf::createQuaternionMsgFromYaw(yaw);
+    this->mb_ac->sendGoal(goal);
+    //ROS_INFO("Sending a new goal to move_base x %lf y %lf yaw %lf", x, y, yaw);
 
-        if (this->mb_ac->waitForResult(ros::Duration(10.0)) ){
-            return true;
-        }
-        this->mb_ac->cancelGoal();
-        return false; 
+    if (this->mb_ac->waitForResult(ros::Duration(10.0)) ){
+        return true;
     }
+    this->mb_ac->cancelGoal();
+    return false; 
+  }
 
-    double get_yaw(double x, double y, double w, double z){
-        double yaw = asin(-2*(x*z - w*y));
-        return yaw;
+  double get_yaw(double x, double y, double w, double z){
+    double yaw = asin(-2*(x*z - w*y));
+    return yaw;
+  }
+
+  void getCoordinates(){
+
+    // charitys office
+    std::vector<double> charity;
+    charity.push_back(-26.81);
+    charity.push_back(1.66);
+    charity.push_back(0.0); 
+
+    // jeans office
+    std::vector<double> jean;
+    jean.push_back(-23.22);
+    jean.push_back(20.0);
+    jean.push_back(0.0); 
+
+    // grasp
+    std::vector<double> grasp;
+    grasp.push_back(2.40424320025);
+    grasp.push_back(1.33934123128);
+    grasp.push_back(3.3); 
+
+    // vending machine
+    std::vector<double> vending;        
+    vending.push_back(2);
+    vending.push_back(-12.6);
+    vending.push_back(0.0);
+
+    this->coordinates["grasp_lab"] = grasp;
+    this->coordinates["charitys_office"] = charity;
+    this->coordinates["jeans_office"] = jean;
+    this->coordinates["vending_machine"] = vending;
+  }
+
+  bool equalCoordinates(std::vector<double> in1, std::vector<double> in2){
+    for (int i = 0; i < in1.size()-1; i++){
+        in1[i] -= in2[i];
+        in1[i] = fabs(in1[i]);
+        if(in1[i] > 0.5) 
+            return false;
     }
-
-    void getCoordinates(){
-
-        // charitys office
-        std::vector<double> charity;
-        charity.push_back(-26.81);
-        charity.push_back(1.66);
-        charity.push_back(0.0); 
-
-        // jeans office
-        std::vector<double> jean;
-        jean.push_back(-23.96);
-        jean.push_back(18.66);
-        jean.push_back(0.0); 
-
-        // grasp
-        std::vector<double> grasp;
-        grasp.push_back(2.40424320025);
-        grasp.push_back(1.33934123128);
-        grasp.push_back(3.3); 
-
-        // vending machine
-        std::vector<double> vending;        
-        vending.push_back(24.99);
-        vending.push_back(-15.37);
-        vending.push_back(0.0);
-
-        this->coordinates["grasp_lab"] = grasp;
-        this->coordinates["charitys_office"] = charity;
-        this->coordinates["jeans_office"] = jean;
-        this->coordinates["vending_machine"] = vending;
-    }
-
-
+    return true;
+  }
+    
 /*
 * Callbacks
 */
 
-    void amclCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg){
-        float x = msg->pose.pose.orientation.x;
-        float y = msg->pose.pose.orientation.y;
-        float z = msg->pose.pose.orientation.z;
-        float w = msg->pose.pose.orientation.w;
-        ROS_INFO("AMCL current_pose |  x: %lf, y: %lf, z: %lf, w: %lf", x, y, z, w);
-    }
+  void amclCallback(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg){
+    float x = msg->pose.pose.orientation.x;
+    float y = msg->pose.pose.orientation.y;
+    float z = msg->pose.pose.orientation.z;
+    float w = msg->pose.pose.orientation.w;
+    ROS_INFO("AMCL current_pose |  x: %lf, y: %lf, z: %lf, w: %lf", x, y, z, w);
+  }
+  
+  void caffeCallback(const std_msgs::String::ConstPtr& msg){
+    ROS_INFO("Caffe says: [%s]", msg->data.c_str());
     
-    void caffeCallback(const std_msgs::String::ConstPtr& msg){
-	    ROS_INFO("Caffe says: [%s]", msg->data.c_str());
-    	
-        // extract information from message
-    	std::string line;
-    	std::string object;
-    	line = msg->data.c_str();	
-    	object = line.substr(line.find_first_of(" \t")+1);
-    	
-    	for (int i =0; i<this->objectTargets.size(); i++) {
-    		if (object.find(this->objectTargets[i])!= std::string::npos){ // parse caffe message for item
-    			ROS_INFO_STREAM("FOUND: " << object);
-    			this->detect_obj = true;
-    		}
-	   }    
-    }
+    // extract information from message
+    std::string line;
+    std::string object;
+    line = msg->data.c_str(); 
+    object = line.substr(line.find_first_of(" \t")+1);
+    
+    for (int i =0; i<this->objectTargets.size(); i++) {
+      if (object.find(this->objectTargets[i])!= std::string::npos){ // parse caffe message for item
+        ROS_INFO_STREAM("FOUND: " << object);
+        this->detect_obj = true;
+      }
+    }    
+  }
 
-    void objectCallback(const std_msgs::Float32MultiArray::ConstPtr& msg){
-        ROS_INFO("FILL IN OBJECT CALLBACK");
-    }
+  void objectCallback(const std_msgs::Float32MultiArray::ConstPtr& msg){
+    ROS_INFO("FILL IN OBJECT CALLBACK");
+  }
 
-    void androidCallback(const std_msgs::String::ConstPtr& msg){
-	this->userInput = msg->data.c_str();
-    }
+  void androidCallback(const std_msgs::String::ConstPtr& msg){
+    this->userInput = msg->data.c_str();
+  }
 
-    void faceCallback(const face_recognition::Loc::ConstPtr& msg){
-    	ROS_INFO("FILL IN FACE CALLBACK");
-        for(int i=0; i<msg->labels.size();i++){
-           faceLocX.push_back(msg->x[i]);
-           faceLocY.push_back(msg->y[i]);
-	   faceLocZ.push_back(msg->z[i]);
-           faceLabels.push_back(msg->labels[i]);
-          }
+  void faceCallback(const face_recognition::Loc::ConstPtr& msg){
+    ROS_INFO("FILL IN FACE CALLBACK");
+    for(int i=0; i<msg->labels.size();i++){
+      faceLocX.push_back(msg->x[i]);
+      faceLocY.push_back(msg->y[i]);
+      faceLocZ.push_back(msg->z[i]);
+      faceLabels.push_back(msg->labels[i]);
     }
+  }
+  void gotoIdle(void){
+    std::string cmd;
+    
+    if(this->userInput.compare(" ") != 0){
+      // parse input 
+      std::istringstream iss(this->userInput);
+      iss >> cmd;
+      this->userInput = " ";
+      if(cmd.compare("cmd_idle") == 0){
+        this->fsm = IDLE;
+      }
+    }
+        
+  }
 
 /******************
 * Spin() for Tasks
 ******************/
 
-    void spin_findObject(){
-        
-        // wait for user input 
-	this->getCoordinates(); 
-        while(this->userInput.compare(" ") == 0){
-	    ros::Duration(0.25).sleep();
-            ros::spinOnce();
-        }
+  void spin_findObject(){
+      
+    // wait for user input 
+    this->getCoordinates(); 
+      
 
-        // parse input 
-        std::istringstream iss(this->userInput);
-        std::string location;
-        std::string object;
-        iss >> location;
-        iss >> object;
-
-        // initialize variables
-    	
-    	std::vector<double> navGoal = this->coordinates[location]; // [x,y,yaw]
-        std::vector<double> homeBase = this->coordinates["grasp_lab"]; 
-        this->objectTargets.push_back("keyboard");
-        this->objectTargets.push_back("ball");
-        this->objectTargets.push_back(object);
-        bool result;
-        
-        // spin loop 
-        this->fsm = GOTO;
-        ros::Rate rate(50);
-        while (ros::ok()) {
-        	switch(fsm){
-
-        		case GOTO : 
-        			result = goal(navGoal);
-        			if (result == true && navGoal == homeBase){
-	                    ROS_INFO("Wiggles has returned to homebase");
-	                    ROS_INFO("exiting");
-	                    return;
-                	}	
-
-                	if (result){
-                		this->fsm = EXPLORE;
-                	}
-        			break;
-
-        		case EXPLORE : 
-        			if( detect_obj == true){
-        				this->fsm = WAIT;
-        				break;
-                	}
-                	this->navigationExplore();
-	                this->lookForOjbect();
-        			break;
-
-        		case WAIT :
-        			move(0.0,0.0);
-	                ROS_INFO("object found, waiting ...");
-	                ros::Duration(10.0).sleep();
-                	navGoal = homeBase;
-                	this->fsm = GOTO;
-        			break;  
-        	}
-        }
-
-    	ros::spinOnce();
-        rate.sleep();
-    }
-
-    void spin_followFace(int faceTarget){
-
-        // initialize variables
-    	
-    	//std::vector<double> navGoal = this->coordinates[location]; // [x,y,yaw]
-        //std::vector<double> homeBase = this->coordinates["grasp_lab"]; 
-        std::vector<double> navGoal;
-        std::vector<double> homeBase;
-	 bool result;
-        
-        words.data = "Let's start it! Finding Yifan!";    
-        stringPub.publish(words);
-                 
-        // spin loop 
-        this->fsm = EXPLORE;
-        
-        ros::Rate rate(50);
-        while (ros::ok()) {
-        	switch(fsm){
-
-        		case GOTO : 
-        			result = goal(navGoal);
-        			if (result == true && navGoal == homeBase){
-	                    ROS_INFO("Wiggles has returned to homebase");
-	                    ROS_INFO("exiting");
-	                    return;
-                	}	
-
-                	if (result){
-                		this->fsm = EXPLORE;
-                	}
-        			break;
-
-        		case EXPLORE : 
-        			if( detect_face == true){
-        				this->fsm = FOLLOW;
-                                        words.data = "I see Yifan, start following";
-                                        stringPub.publish(words);
-        				break;
-                	}
-                	this->navigationExplore();
-	                this->lookForFace(faceTarget);
-        			break;
-
-        		case FOLLOW :
-	                ROS_INFO("following face ...");
-			//this->lookForFace(faceTarget);
-    	    for (int j=0; j<5; j++){ // try to detect object 5 times on each turn
-        	ros::spinOnce();
-        	for(int k=0; k<faceLabels.size();k++){
-			if(faceLabels[k] == faceTarget){
-				detect_face = true;
-				detect_face_idx = k;
-			//	return;
-			}
-		}	
-                //ros::Duration(0.3).sleep();
-	 }	
-
-			if(detect_face == false){
-			  //this->fsm = EXPLORE;
-			 this->move(0.0, 0.0);
-			  break;
-			}
-	                double linear = 0.2;
-			double angular = 1.0 * atan2(-faceLocX[detect_face_idx], faceLocZ[detect_face_idx]);
-                	this->move(linear, angular);
-        			break;  
-        	}
-        	ros::spinOnce();
-        }
-
-       rate.sleep();
-    }
-
-protected:
-	// publishers and subscribers 
-	ros::Publisher commandPub; // Publisher to the simulated robot's velocity command topic
-      ros::Publisher stringPub;
-
-    ros::Subscriber faceSub; // Subscriber to face detection
-	//ros::Publisher androidPub;
-    ros::Subscriber objectSub;
-    ros::Subscriber amclSub;
-	ros::Subscriber caffeSub;
-	ros::Subscriber androidSub; 
-	
-	// hector navigation data members
-	ros::ServiceClient exploration_plan_service_client_;
-	ros::Publisher vel_pub_;
-	tf::TransformListener tfl_;
-	pose_follower::HectorPathFollower path_follower_;
-	ros::Timer exploration_plan_generation_timer_;
-	ros::Timer cmd_vel_generator_timer_;
-	MoveBaseClient *mb_ac; 
-
-	// controller members
-	enum FSM {GOTO, EXPLORE, WAIT, FOLLOW};
-	FSM fsm;
-    bool detect_obj;
-    bool detect_face;
-    std::string userInput;
-    std::vector<std::string> objectTargets;
-    std::map<std::string,std::vector<double> > coordinates;
+    // initialize variables
     
-    int detect_face_idx;
-    std::vector<float> faceLocX;
-    std::vector<float> faceLocY;
-    std::vector<float> faceLocZ;
-    std::vector<int> faceLabels; 
-   
-    // the string to publish
-    std_msgs::String words;
+    std::vector<double> navGoal;
+    std::vector<double> homeBase; 
+    std::string cmd;
+    std::string location;
+    std::string object;
+    std_msgs::String msg_feedback;        
+    bool result;
+              
+    
+    // spin loop 
+    this->fsm = IDLE;
+    ros::Rate rate(50);
+    while (ros::ok()) {
+      switch(fsm){
+        case IDLE:
+          if(this->userInput.compare(" ") != 0){
+            // parse input 
+            std::istringstream iss(this->userInput);
+            this->userInput = " ";
+            iss >> cmd;
+            if(cmd.compare("cmd_goto") == 0)
+            {
+                iss >> location;
+                iss >> object;
+                navGoal = this->coordinates[location];
+                homeBase = this->coordinates["grasp_lab"];
+                this->objectTargets.push_back(object);
+                this->fsm = GOTO;
+            }
+            else if(cmd.compare("cmd_follow") == 0){
+              this->fsm = EXPLORE_FACE;
+            }
+            else if(cmd.compare("cmd_teleop") == 0){
+
+            }
+            else this->fsm = IDLE;
+          }
+          break;
+            
+        case GOTO : 
+          // gotoIdle();
+         words.data = "Goto the destination!";    
+    stringPub.publish(words);
+    
+           
+	 result = goal(navGoal);
+         
+         if (result){
+            ROS_INFO("Wiggles has reached navGoal");
+           
+   	 words.data = "Destination reached!";    
+   	 stringPub.publish(words);
+    	 this->fsm = EXPLORE_OBJ;
+          }
+          break;
+
+        case EXPLORE_OBJ : 
+          // gotoIdle();i
+          
+    words.data = "Looking for object!";    
+    stringPub.publish(words);
+          if(detect_obj == true){
+                ROS_INFO("Wiggles has reached navGoal");
+           
+   	 words.data = "Object found!";    
+   	 this->fsm = WAIT_OBJ;
+            break;
+          }
+          this->navigationExplore();
+          this->lookForOjbect();
+          break;
+
+        case WAIT_OBJ :
+          // gotoIdle();
+          move(0.0,0.0);
+          ROS_INFO("object found, waiting ...");
+          ros::Duration(10.0).sleep();
+          //publish reply
+          msg_feedback.data = "location: success object: success";
+
+          androidPub.publish(msg_feedback);
+          navGoal = homeBase;
+          this->fsm = GOTO_BASE;
+          break;
+
+        case GOTO_BASE :
+          // gotoIdle();
+           words.data = "Goto the homebase!";    
+    stringPub.publish(words);
+    result = goal(navGoal);
+          if (result){
+              ROS_INFO("Wiggles has returned to homebase");
+              this->fsm = IDLE;
+          }
+          break;
+        case EXPLORE_FACE : 
+          gotoIdle();
+          if( detect_face == true){
+            this->fsm = FOLLOW_FACE;
+            words.data = "I see a face, start following";
+            stringPub.publish(words);
+            break;
+          }
+          this->navigationExplore();
+          this->lookForFace(faceTarget);
+          break;
+
+        case FOLLOW_FACE :
+          gotoIdle();
+          ROS_INFO("following face ...");
+          //this->lookForFace(faceTarget);
+          for (int j=0; j<5; j++){ // try to detect object 5 times on each turn
+            ros::spinOnce();
+            detect_face = false;
+            for(int k=0; k<faceLabels.size();k++){
+              if(faceLabels[k] == faceTarget){
+                detect_face = true;
+                detect_face_idx = k;
+              }
+            } 
+          }  
+
+          if(detect_face == false){
+            this->fsm = EXPLORE_FACE;
+            this->move(0.0, 0.0);
+            break;
+          }
+      
+          double linear = 0.1;
+          double angular = 1.0 * atan2(-faceLocX[detect_face_idx], faceLocZ[detect_face_idx]);
+          this->move(linear, angular);
+          break;
+ 
+      }
+      ros::spinOnce();
+    }
+
+  
+    rate.sleep();
+  }
+
+  
+  /*void spin_followFace(int faceTarget){
+
+    // initialize variables
+    
+    std::vector<double> navGoal;
+    std::vector<double> homeBase;
+    bool result;
+      
+    words.data = "Let's start it! Finding Yifan!";    
+    stringPub.publish(words);
+             
+    // spin loop 
+    this->fsm = EXPLORE;
+    
+    ros::Rate rate(50);
+    while (ros::ok()) {
+      switch(fsm){
+        case EXPLORE : 
+          if( detect_face == true){
+            this->fsm = FOLLOW;
+            words.data = "I see Yifan, start following";
+            stringPub.publish(words);
+            break;
+          }
+          this->navigationExplore();
+          this->lookForFace(faceTarget);
+          break;
+
+        case FOLLOW :
+          ROS_INFO("following face ...");
+          //this->lookForFace(faceTarget);
+          for (int j=0; j<5; j++){ // try to detect object 5 times on each turn
+            ros::spinOnce();
+            detect_face = false;
+            for(int k=0; k<faceLabels.size();k++){
+              if(faceLabels[k] == faceTarget){
+                detect_face = true;
+                detect_face_idx = k;
+                //  return;
+              }
+            } 
+            //ros::Duration(0.3).sleep();
+          }  
+
+          if(detect_face == false){
+            //this->fsm = EXPLORE;
+            this->move(0.0, 0.0);
+            break;
+          }
+      
+          double linear = 0.2;
+          double angular = 1.0 * atan2(-faceLocX[detect_face_idx], faceLocZ[detect_face_idx]);
+          this->move(linear, angular);
+          break;  
+      }
+      ros::spinOnce();
+    }
+    rate.sleep();
+  }
+*/
+protected:
+  // publishers and subscribers 
+  ros::Publisher commandPub; // Publisher to the simulated robot's velocity command topic
+  ros::Publisher stringPub;
+
+  ros::Subscriber faceSub; // Subscriber to face detection
+  ros::Publisher androidPub;
+  ros::Subscriber objectSub;
+  ros::Subscriber amclSub;
+  ros::Subscriber caffeSub;
+  ros::Subscriber androidSub; 
+  
+  // hector navigation data members
+  ros::ServiceClient exploration_plan_service_client_;
+  ros::Publisher vel_pub_;
+  tf::TransformListener tfl_;
+  pose_follower::HectorPathFollower path_follower_;
+  ros::Timer exploration_plan_generation_timer_;
+  ros::Timer cmd_vel_generator_timer_;
+  MoveBaseClient *mb_ac; 
+
+  // controller members
+  enum FSM {IDLE, GOTO, GOTO_BASE, EXPLORE_OBJ, WAIT_OBJ, EXPLORE_FACE, FOLLOW_FACE};
+  FSM fsm;
+  bool detect_obj;
+  bool detect_face;
+  std::string userInput;
+  std::vector<std::string> objectTargets;
+  std::map<std::string,std::vector<double> > coordinates;
+  
+  int detect_face_idx;
+  int faceTarget;
+  std::vector<float> faceLocX;
+  std::vector<float> faceLocY;
+  std::vector<float> faceLocZ;
+  std::vector<int> faceLabels; 
+ 
+  // the string to publish
+  std_msgs::String words;
 };
 
 
@@ -441,8 +534,8 @@ int main(int argc, char **argv) {
     ros::init(argc, argv, "controller"); // Initiate new ROS node named "controller"
     ros::NodeHandle nh;
     Controller controller(nh); // Create default controller object
-    //controller.spin_findObject(); // Execute FSM loop
-    controller.spin_followFace(2);
+    controller.spin_findObject(); // Execute FSM loop
+    // controller.spin_followFace(2);
     return 0;
 }
 
