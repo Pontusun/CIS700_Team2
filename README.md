@@ -5,4 +5,5 @@ The repository is construncted by team2 of CIS 700 2015, for the purpose of deve
 The repo mainly contains four part: controller, navigation, vision, voice systhesis. The vision part contains face recognition and object recognition.
 
 Author: Andy Lee, Christopher Clingerman, Guan Sun, Pedro Paulo Ventura Tecchio, Yifan Yang
+
 Team Website: https://alliance.seas.upenn.edu/~cis700ii/dynamic/team2/
